@@ -16,7 +16,7 @@
 ## About the Project
 
 The Boilerplate UI + Backend Framework project allows developers to quickly become beckn enabled and beckn protocol-based software quickly. The Backend Framework SDK gives the developer a defined structure to build beckn systems. 
-Moreover, the project also includes a set of Fulfillment Application and Admin UI connected with various BPPs.
+Moreover, the project also includes a set of Fulfillment Applications and Admin UI connected with various BPPs.
 
 ---
 
@@ -28,7 +28,7 @@ The workflow of the project goes as
 The project utilizes Turbo Repo to manage multiple monorepos
 
 ### BPP SDK
-The BPP SDK includes a set of utilities and libraries to generate and build beckn enabled bpp applications.
+The BPP SDK includes a set of utilities and libraries to generate and build beckn-enabled bpp applications.
 Technology Stack: **Node.JS, Express.JS, Typescript, Open API 3.0, Rollup**
 
 ### BPP Server
@@ -36,7 +36,7 @@ The network-facing BPP Server application. Developed with the BPP SDK, the serve
 Technology Stack: **Node.JS, Express.JS, Typescript, MySQL, Open API 3.0, Prisma**
 ### BPP Webhook
 The webhook is used for communication between the Admin UI and the Fulfilment application. This acts as a middle communication layer between different applications.
-Technology Stack: **Node.JS, Express.JS, Websockets(Socket.IO), Typescript, Open API 3.0, ngrok/localtunne**
+Technology Stack: **Node.JS, Express.JS, Websockets(Socket.IO), Typescript, Open API 3.0**
 
 ### Fulfillment UI Application
 The fulfillment UI Application is an Android application to accepts orders from any connected client. For example, confirming the order requested by a client for a transit ticket.
