@@ -7,6 +7,7 @@
 │   ├── admin/ # Admin UI React App
 │   ├── agent/ # Fulfillment Agent Application (React Native)
 │   └── server/ # BPP Backend Server
+│   └── webhook/ # BPP Webhook
 ├── packages/
 │   ├── bpp-sdk/ # BPP SDK Library
 │   └── shared-utils/ # Shared Utility Library
@@ -28,28 +29,33 @@ The workflow of the project goes as
 The project utilizes Turbo Repo to manage multiple monorepos
 
 ### BPP SDK
+
 The BPP SDK includes a set of utilities and libraries to generate and build beckn-enabled bpp applications.
 Technology Stack: **Node.JS, Express.JS, Typescript, Open API 3.0, Rollup**
 
 ### BPP Server
+
 The network-facing BPP Server application. Developed with the BPP SDK, the server interacts with the network and BAPs via Beckn Protocol.
 Technology Stack: **Node.JS, Express.JS, Typescript, MySQL, Open API 3.0, Prisma**
+
 ### BPP Webhook
+
 The webhook is used for communication between the Admin UI and the Fulfilment application. This acts as a middle communication layer between different applications.
 Technology Stack: **Node.JS, Express.JS, Websockets(Socket.IO), Typescript, Open API 3.0**
 
 ### Fulfillment UI Application
+
 The fulfillment UI Application is an Android application to accepts orders from any connected client. For example, confirming the order requested by a client for a transit ticket.
 Technology Stack: **React Native, WebSockets, Typescript**
 
 ### Admin UI
+
 The Admin UI application includes a dashboard for all the BPPs and providers. This allows the admins to view the orders and connected admins, fulfillment apps, and BAPs. It also shows the certifications, BPP details, and network.
 Technology Stack: **React, WebSockets, Typescript**
 
 ---
 
 Currently, the BPP Server runs a Dummy API to connect with the database.
-
 
 ## Setup Instructions
 
