@@ -18,14 +18,14 @@
 The Boilerplate UI + Backend Framework project allows developers to quickly become beckn enabled and beckn protocol-based software quickly. The Backend Framework SDK gives the developer a defined structure to build beckn systems. 
 Moreover, the project also includes a set of Fulfillment Application and Admin UI connected with various BPPs.
 
-The project utilized Turbo Repo to manage multiple monorepos
-
 ---
 
 ## Project Architecture
 
 The workflow of the project goes as
 ![image](https://github.com/Sarfraz-droid/BPP-Boilerplate-SDK/assets/73013838/838a6642-9a14-4085-8b6b-fb2ff371a512)
+
+The project utilizes Turbo Repo to manage multiple monorepos
 
 ### BPP SDK
 The BPP SDK includes a set of utilities and libraries to generate and build beckn enabled bpp applications.
