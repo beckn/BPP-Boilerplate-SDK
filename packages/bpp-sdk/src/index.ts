@@ -1,10 +1,7 @@
-import { age, name } from './test'
-
-console.log('Hello World')
+import { status } from './test'
 
 const info = {
-  name: name,
-  age: age
+  status: status
 }
 
 export default info

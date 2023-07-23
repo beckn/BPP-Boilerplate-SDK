@@ -1,2 +1,1 @@
-export const name = 'Sarfraz'
-export const age = 23
+export const status = 'BPP SDK is running'

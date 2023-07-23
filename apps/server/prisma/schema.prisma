@@ -17,3 +17,12 @@ model User {
   name    String?
 }
 
+model Catalog {
+  id      String   @id @default(cuid())  
+  title   String   
+  description String
+  price   Int
+  icon    String 
+  category String
+  quantity Int
+}

@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import 'dotenv/config'
 import express, { Request, Response } from 'express'
 import { db } from './model'
 import { logger } from './utils/logger'
 import { loggerMiddleware } from './middlewares/logger'
 import info from 'bpp-sdk'
+import { error } from 'console'
+import cors from 'cors'
 
 logger.info(JSON.stringify(info))
 
@@ -15,7 +18,20 @@ const main = async () => {
     await db.$connect()
     logger.debug('Connected to database')
 
+    app.use(
+      cors({
+        origin: '*'
+      })
+    )
     app.use(express.json())
+
+    app.use(express.static('public'))
+
+    app.use((req, res, next) => {
+      setTimeout(() => {
+        next()
+      }, 1000)
+    })
 
     app.use(loggerMiddleware)
 
@@ -24,6 +40,8 @@ const main = async () => {
     })
 
     app.use('/dummy', require('./routes/dummy.routes').default)
+    app.use('/catalog', require('./routes/catalog.routes').default)
+    app.use('/util', require('./routes/util.routes').default)
 
     app.listen(process.env.PORT, () => {
       logger.info(`Server is listening on port ${process.env.PORT}`)

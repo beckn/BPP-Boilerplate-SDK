@@ -39,3 +39,6 @@ yarn-error.log*
 *.log
 yarn.lock
 package-lock.json
+
+
+apps/server/public/uploads/*

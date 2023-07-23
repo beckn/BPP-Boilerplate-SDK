@@ -1,63 +1,44 @@
 {
 	"info": {
-		"_postman_id": "3b9b293e-ee28-4638-b85b-7855ab42c6b1",
-		"name": "Server Router",
+		"_postman_id": "1f4f3fec-bffe-4997-925e-edf78d248470",
+		"name": "Beckn BPP Boilerplate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15268335"
 	},
 	"item": [
 		{
-			"name": "Dummy",
+			"name": "Catalog",
 			"item": [
 				{
-					"name": "Get",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Get Catalog by Id",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{host}}/dummy",
+							"raw": "{{host}}/catalog/clkcqobki0003jl8own7fh12j",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"dummy"
+								"catalog",
+								"clkcqobki0003jl8own7fh12j"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Get Catalog by Id",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"id\": \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{host}}/dummy",
+									"raw": "{{host}}/catalog/clkcqobki0003jl8own7fh12j",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
-										"dummy"
+										"catalog",
+										"clkcqobki0003jl8own7fh12j"
 									]
 								}
 							},
@@ -75,15 +56,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "96"
+									"value": "285"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"60-wRKEkYUaoh/kRMntzM7A6V0vYQQ\""
+									"value": "W/\"11d-/8TZR5Y9aNw8sEiBXtmjJdk0ESE\""
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 13 Jul 2023 20:35:56 GMT"
+									"value": "Fri, 21 Jul 2023 15:31:49 GMT"
 								},
 								{
 									"key": "Connection",
@@ -95,18 +76,89 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\",\n    \"email\": \"Chaim56@gmail.com\",\n    \"name\": \"Barry Bernier\"\n}"
+							"body": "{\n    \"message\": \"Catalog found\",\n    \"catalog\": {\n        \"id\": \"clkcqobki0003jl8own7fh12j\",\n        \"title\": \"Manali Tour\",\n        \"description\": \"4 day trip to manali\",\n        \"price\": 5000,\n        \"icon\": \"https://fastly.picsum.photos/id/987/600/600.jpg?hmac=dOWnzllzlM9qIUSia0Oj75csVBw8NV1quFNHfPsoCzM\",\n        \"category\": \"travel\",\n        \"quantity\": 100\n    }\n}"
 						}
 					]
 				},
 				{
-					"name": "Create",
+					"name": "Get Catalogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/catalog/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"catalog",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Catalog by Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/catalog/clkcqobki0003jl8own7fh12j",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"catalog",
+										"clkcqobki0003jl8own7fh12j"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "285"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11d-/8TZR5Y9aNw8sEiBXtmjJdk0ESE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Jul 2023 15:31:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Catalog found\",\n    \"catalog\": {\n        \"id\": \"clkcqobki0003jl8own7fh12j\",\n        \"title\": \"Manali Tour\",\n        \"description\": \"4 day trip to manali\",\n        \"price\": 5000,\n        \"icon\": \"https://fastly.picsum.photos/id/987/600/600.jpg?hmac=dOWnzllzlM9qIUSia0Oj75csVBw8NV1quFNHfPsoCzM\",\n        \"category\": \"travel\",\n        \"quantity\": 100\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Catalog",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"title\": \"Test\",\n    \"description\": \"test catalog\",\n    \"price\": 200,\n    \"icon\": \"jklfjl\",\n    \"category\": \"travel\",\n    \"quantity\": 20\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,24 +166,25 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dummy",
+							"raw": "{{host}}/catalog/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"dummy"
+								"catalog",
+								""
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "Get Copy",
+							"name": "Create Catalog",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "",
+									"raw": "{\n    \"title\": \"Manali Tour\",\n    \"description\": \"4 day trip to manali\",\n    \"price\": 5000,\n    \"icon\": \"https://fastly.picsum.photos/id/987/600/600.jpg?hmac=dOWnzllzlM9qIUSia0Oj75csVBw8NV1quFNHfPsoCzM\",\n    \"category\": \"travel\",\n    \"quantity\": 100\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -139,12 +192,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/dummy",
+									"raw": "{{host}}/catalog/",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
-										"dummy"
+										"catalog",
+										""
 									]
 								}
 							},
@@ -162,15 +216,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "96"
+									"value": "287"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"60-q5LYfbAuux2U8S6WGEKez6qxAeE\""
+									"value": "W/\"11f-7T2nmdAFuWzvFysghw7itv2Hlfc\""
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 13 Jul 2023 20:35:44 GMT"
+									"value": "Fri, 21 Jul 2023 15:31:31 GMT"
 								},
 								{
 									"key": "Connection",
@@ -182,18 +236,18 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\",\n    \"name\": \"Barry Bernier\",\n    \"email\": \"Chaim56@gmail.com\"\n}"
+							"body": "{\n    \"message\": \"Catalog created\",\n    \"catalog\": {\n        \"id\": \"clkcqobki0003jl8own7fh12j\",\n        \"title\": \"Manali Tour\",\n        \"description\": \"4 day trip to manali\",\n        \"price\": 5000,\n        \"icon\": \"https://fastly.picsum.photos/id/987/600/600.jpg?hmac=dOWnzllzlM9qIUSia0Oj75csVBw8NV1quFNHfPsoCzM\",\n        \"category\": \"travel\",\n        \"quantity\": 100\n    }\n}"
 						}
 					]
 				},
 				{
-					"name": "Delete",
+					"name": "Update Catalog",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\" : \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\"\n}",
+							"raw": "{\n    \"title\": \"Updated Catalog\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,24 +255,25 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dummy",
+							"raw": "{{host}}/catalog/clkcqmxs20002jl8o3joh9ufm",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"dummy"
+								"catalog",
+								"clkcqmxs20002jl8o3joh9ufm"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Update Catalog",
 							"originalRequest": {
-								"method": "DELETE",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\" : \"f612a37b-bec2-4d69-bb18-d7a072ad3b6c\"\n}",
+									"raw": "{\n    \"title\": \"Updated Catalog\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -226,12 +281,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/dummy",
+									"raw": "{{host}}/catalog/clkcqmxs20002jl8o3joh9ufm",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
-										"dummy"
+										"catalog",
+										"clkcqmxs20002jl8o3joh9ufm"
 									]
 								}
 							},
@@ -249,15 +305,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "26"
+									"value": "191"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"1a-+BFCXZBji7vrbkrwyE5s2YKViik\""
+									"value": "W/\"bf-xf5s3rjZLiRx3yMSZBqwWaUHfdo\""
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 13 Jul 2023 20:36:26 GMT"
+									"value": "Fri, 21 Jul 2023 15:36:04 GMT"
 								},
 								{
 									"key": "Connection",
@@ -269,7 +325,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"User deleted\"\n}"
+							"body": "{\n    \"message\": \"Catalog updated\",\n    \"catalog\": {\n        \"id\": \"clkcqmxs20002jl8o3joh9ufm\",\n        \"title\": \"Updated Catalog\",\n        \"description\": \"test catalog\",\n        \"price\": 200,\n        \"icon\": \"jklfjl\",\n        \"category\": \"travel\",\n        \"quantity\": 20\n    }\n}"
 						}
 					]
 				}

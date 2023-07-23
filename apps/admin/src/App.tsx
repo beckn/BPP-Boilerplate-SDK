@@ -1,30 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ConfigProvider, theme } from 'antd'
+import React from 'react'
+import { BrowserRouter, Outlet, Route, Router, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom'
+import routes, { IRoute, IRoutes } from './routes'
+
+function generateRoutes(routes: IRoute[]): any[] {
+  return routes.map((route: IRoute) => {
+    return {
+      path: route.path,
+      element: route.component ? <route.component /> : <Outlet />,
+      children: route.children ? generateRoutes(route.children) : undefined
+    } as any
+  }) as any[]
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter(generateRoutes(routes))
+
+  console.log(router)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>ADMIN UI</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <React.Fragment>
+      <ConfigProvider
+        theme={{
+          algorithm: theme.darkAlgorithm
+        }}
+      >
+        <RouterProvider router={router} />
+      </ConfigProvider>
+    </React.Fragment>
   )
 }
 
