@@ -150,16 +150,7 @@ function AddCatalog({
             ]}
           />
         </Form.Item>
-        <Form.Item
-          label="Catalog Icon"
-          name="Upload"
-          rules={[
-            {
-              required: true,
-              message: 'Please upload your catalog image'
-            }
-          ]}
-        >
+        <Form.Item label="Catalog Icon" name="Upload">
           <Upload
             action={'http://localhost:4000/util/upload'}
             maxCount={1}
