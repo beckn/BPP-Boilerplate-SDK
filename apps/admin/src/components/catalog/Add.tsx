@@ -3,14 +3,29 @@ import React, { useEffect, useState } from 'react'
 import { ICatalog } from '../../types/model'
 import { instance } from '../../util/axiosInstance'
 
-function AddCatalog({ onComplete, defaultValues }: { onComplete: () => void; defaultValues?: any }) {
+function AddCatalog({
+  onComplete,
+  defaultValues,
+  type
+}: {
+  onComplete: () => void
+  defaultValues?: any
+  type: 'update' | 'add'
+}) {
   const [messageApi, contextHolder] = message.useMessage()
   const [icon, setIcon] = useState<string | null>(null)
   const [buttonState, setButtonState] = useState({
     loading: false,
     disabled: false,
-    text: 'Add Catalog'
+    text: `${type.toUpperCase()} CATALOG`
   })
+
+  useEffect(() => {
+    setButtonState({
+      ...buttonState,
+      text: `${type.toUpperCase()} CATALOG`
+    })
+  }, [type])
 
   const [form] = Form.useForm()
 
@@ -44,7 +59,12 @@ function AddCatalog({ onComplete, defaultValues }: { onComplete: () => void; def
       quantity: Number(values.quantity)
     }
 
-    const response = await instance.post('/catalog', data)
+    let response
+    if (type === 'update') {
+      response = await instance.put(`/catalog/${defaultValues._id}`, data)
+    } else {
+      response = await instance.post('/catalog', data)
+    }
 
     if (response.status === 200) {
       messageApi.success('Catalog added successfully')
@@ -145,7 +165,7 @@ function AddCatalog({ onComplete, defaultValues }: { onComplete: () => void; def
             maxCount={1}
             onChange={info => {
               console.log(info.file.status)
-              if (info.file.status === 'success') {
+              if (info.file.status === 'done') {
                 form.setFieldValue('icon', info.file.response.path)
                 setIcon(info.file.response.path)
                 messageApi.success('File uploaded successfully')

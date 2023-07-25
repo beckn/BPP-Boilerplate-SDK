@@ -11,6 +11,7 @@ function ViewCatalog() {
   const [modal, setModal] = React.useState({
     open: false,
     deleted: false,
+    edit: false,
     values: {}
   })
 
@@ -73,6 +74,7 @@ function ViewCatalog() {
                   setModal({
                     open: true,
                     deleted: false,
+                    edit: true,
                     values: record
                   })
                 }
@@ -84,8 +86,9 @@ function ViewCatalog() {
                 danger
                 onClick={() =>
                   setModal({
-                    open: true,
+                    open: false,
                     deleted: true,
+                    edit: false,
                     values: record
                   })
                 }
@@ -115,6 +118,7 @@ function ViewCatalog() {
             setModal({
               open: true,
               deleted: false,
+              edit: false,
               values: {}
             })
           }}
@@ -126,6 +130,7 @@ function ViewCatalog() {
       <Modal title="Add Catalog" open={modal.open} onCancel={toggleModal('open')} footer={null}>
         <AddCatalog
           defaultValues={modal.values}
+          type={modal.edit ? 'update' : 'add'}
           onComplete={() => {
             refetch()
             toggleModal('open')()
@@ -138,7 +143,7 @@ function ViewCatalog() {
           record={modal.values}
           onComplete={() => {
             refetch()
-            toggleModal('open')()
+            toggleModal('deleted')()
           }}
         />
       </Modal>

@@ -4,8 +4,17 @@ import { instance } from '../../util/axiosInstance'
 
 function DeleteCatalog({ onComplete, record }: { onComplete: () => void; record: any }) {
   const [messageApi, contextHolder] = message.useMessage()
+  const [buttonState, setButtonState] = React.useState({
+    loading: false,
+    disabled: false
+  })
 
   const handleDelete = async () => {
+    setButtonState({
+      ...buttonState,
+      loading: true,
+      disabled: true
+    })
     const response = await instance.delete(`/catalog/${record._id}`)
 
     if (response.status === 200) {
@@ -14,6 +23,12 @@ function DeleteCatalog({ onComplete, record }: { onComplete: () => void; record:
     } else {
       messageApi.error('Something went wrong')
     }
+
+    setButtonState({
+      ...buttonState,
+      loading: false,
+      disabled: false
+    })
   }
 
   return (
@@ -24,7 +39,13 @@ function DeleteCatalog({ onComplete, record }: { onComplete: () => void; record:
         <Typography.Text>This action cannot be undone.</Typography.Text>
 
         <Space>
-          <Button type="primary" danger onClick={handleDelete}>
+          <Button
+            type="primary"
+            danger
+            onClick={handleDelete}
+            loading={buttonState.loading}
+            disabled={buttonState.disabled}
+          >
             Yes
           </Button>
           <Button type="primary" onClick={onComplete}>
