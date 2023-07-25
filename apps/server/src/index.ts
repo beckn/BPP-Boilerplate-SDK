@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'dotenv/config'
 import express, { Request, Response } from 'express'
-import { db } from './model'
 import { logger } from './utils/logger'
 import { loggerMiddleware } from './middlewares/logger'
 import info from 'bpp-sdk'
 import { error } from 'console'
 import cors from 'cors'
+import { bppSDK } from './models'
 
 logger.info(JSON.stringify(info))
 
@@ -15,7 +15,9 @@ const app = express()
 const main = async () => {
   try {
     logger.debug('Connecting to database')
-    await db.$connect()
+
+    bppSDK.initializeDB()
+
     logger.debug('Connected to database')
 
     app.use(
@@ -39,7 +41,6 @@ const main = async () => {
       res.send('Hello World')
     })
 
-    app.use('/dummy', require('./routes/dummy.routes').default)
     app.use('/catalog', require('./routes/catalog.routes').default)
     app.use('/util', require('./routes/util.routes').default)
 

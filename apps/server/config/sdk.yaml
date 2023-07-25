@@ -1,0 +1,18 @@
+db:
+  mongo:
+    mongo_uri: mongodb://localhost:27017
+    tables: 
+      - name: "Catalog"
+        schema: 
+          title:
+            type: string
+          description:
+            type: string
+          price:
+            type: number
+          category:
+            type: string
+          quantity:
+            type: number
+          icon:
+            type: string      

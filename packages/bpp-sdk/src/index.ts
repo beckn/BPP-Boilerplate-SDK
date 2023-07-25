@@ -1,7 +1,20 @@
-import { status } from './test'
+import { dBManager } from './models'
+import { Option } from './types/option'
+export * from './services/index.service'
+/**
+ * BPP SDK - SDK Root Class
+ */
+export class BppSDK {
+  options: Option
 
-const info = {
-  status: status
+  constructor(options: Option) {
+    this.options = options
+  }
+
+  initializeDB() {
+    console.log('Initializing DB')
+    dBManager.connect(this.options.db)
+  }
 }
 
-export default info
+export type IBPPSDK = typeof BppSDK

@@ -15,7 +15,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "declaration": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
   },
   "include": ["src/"],
 }

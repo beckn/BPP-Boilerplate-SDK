@@ -1,19 +1,10 @@
-version: '3.3'
+version: '3.8'
 services:
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+  mongodb:
+    image: mongo:6-jammy
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - '27017:27017'
     volumes:
-      - my-db:/var/lib/mysql
-# Names our volume
+      - dbdata6:/data/db
 volumes:
-  my-db:
+  dbdata6:

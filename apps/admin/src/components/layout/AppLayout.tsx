@@ -30,7 +30,6 @@ function AppLayout() {
 
   const items = useMemo(() => {
     return addItems(new AppLayoutService(routes).generateSidebar())
-    // return addItems(routes.filter((route: IRoute) => route.path.startsWith('/app')))
   }, [addItems])
 
   console.log(items)

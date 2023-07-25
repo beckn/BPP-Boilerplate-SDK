@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
-import multer from 'multer'
 
+/**
+ * Utility Controller - Handles all utility related requests
+ */
 export class UtilityController {
   static async uploadFile(req: Request, res: Response) {
     try {

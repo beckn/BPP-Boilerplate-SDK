@@ -1,17 +1,30 @@
-import { Button, Divider, Form, Input, Select, Typography, Upload, message } from 'antd'
-import React from 'react'
-import { ICatalog } from '../../../../types/model'
-import { instance } from '../../../../util/axiosInstance'
+import { Button, Form, Input, Select, Typography, Upload, message } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { ICatalog } from '../../types/model'
+import { instance } from '../../util/axiosInstance'
 
-function AddCatalog() {
+function AddCatalog({ onComplete, defaultValues }: { onComplete: () => void; defaultValues?: any }) {
   const [messageApi, contextHolder] = message.useMessage()
-  const [buttonState, setButtonState] = React.useState({
+  const [icon, setIcon] = useState<string | null>(null)
+  const [buttonState, setButtonState] = useState({
     loading: false,
     disabled: false,
     text: 'Add Catalog'
   })
 
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.resetFields()
+      form?.setFieldsValue(defaultValues)
+      if (defaultValues.icon) {
+        setIcon(defaultValues.icon)
+      } else {
+        setIcon(null)
+      }
+    }
+  }, [defaultValues, form])
 
   const onFinish = async (values: any) => {
     console.log('Success:', values)
@@ -22,15 +35,11 @@ function AddCatalog() {
       text: 'Adding Catalog'
     })
 
-    const icon = values.icon?.file?.response?.path
-
-    if (!icon) return messageApi.error('Please upload your catalog icon')
-
     const data: ICatalog = {
       title: values.title,
       category: values.category,
       description: values.description,
-      icon: icon,
+      icon: icon as string,
       price: Number(values.price),
       quantity: Number(values.quantity)
     }
@@ -40,6 +49,7 @@ function AddCatalog() {
     if (response.status === 200) {
       messageApi.success('Catalog added successfully')
       form?.resetFields()
+      onComplete()
     } else {
       messageApi.error('Something went wrong')
     }
@@ -53,18 +63,7 @@ function AddCatalog() {
   return (
     <React.Fragment>
       {contextHolder}
-      <Typography.Title level={3}>Add Catalog</Typography.Title>
-      <Typography.Text className="italic text-gray-500">Add your catalog here</Typography.Text>
-      <Divider />
-
-      <Form
-        labelAlign="left"
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 6 }}
-        className="w-full justify-start items-start"
-        onFinish={onFinish}
-        form={form}
-      >
+      <Form labelAlign="left" className="w-full justify-start items-start" onFinish={onFinish} form={form}>
         <Form.Item
           label="Catalog Title"
           name="title"
@@ -133,7 +132,7 @@ function AddCatalog() {
         </Form.Item>
         <Form.Item
           label="Catalog Icon"
-          name="icon"
+          name="Upload"
           rules={[
             {
               required: true,
@@ -141,10 +140,25 @@ function AddCatalog() {
             }
           ]}
         >
-          <Upload action={'http://localhost:4000/util/upload'}>
+          <Upload
+            action={'http://localhost:4000/util/upload'}
+            maxCount={1}
+            onChange={info => {
+              console.log(info.file.status)
+              if (info.file.status === 'success') {
+                form.setFieldValue('icon', info.file.response.path)
+                setIcon(info.file.response.path)
+                messageApi.success('File uploaded successfully')
+              }
+            }}
+          >
             <Button> Upload File </Button>
           </Upload>
         </Form.Item>
+
+        <Typography.Text>
+          Uploaded File: <b>{icon}</b>
+        </Typography.Text>
 
         <Form.Item
           label="Quantity"

@@ -1,7 +1,5 @@
-import { Outlet } from 'react-router-dom'
 import CatalogLayout from './pages/app/catalog/layout'
-import AddCatalog from './pages/app/catalog/add'
-import ViewCatalog from './pages/app/catalog/view'
+import Catalog from './pages/app/catalog'
 import AppLayout from './components/layout/AppLayout'
 import AppHome from './pages/app'
 import HomePage from './pages'
@@ -54,17 +52,9 @@ const routes: IRoute[] = [
         component: CatalogLayout,
         children: [
           {
-            id: '2.2.1',
-            path: IRoutePaths.ADD_CATALOG,
-            component: AddCatalog,
-            showInSidebar: true,
-            label: 'Add Catalog',
-            parent: '2.2'
-          },
-          {
             id: '2.2.2',
-            path: IRoutePaths.VIEW_CATALOG,
-            component: ViewCatalog,
+            path: IRoutePaths.CATALOG,
+            component: Catalog,
             showInSidebar: true,
             label: 'View Catalog',
             parent: '2.2'
