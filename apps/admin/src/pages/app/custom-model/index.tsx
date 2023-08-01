@@ -1,5 +1,4 @@
 import { Typography } from 'antd'
-import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { selectedModelAtom } from '../../../atom/selectedmodel.atom'
 import { useQuery } from 'react-query'
