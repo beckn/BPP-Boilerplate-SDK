@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { MongoDB } from '../models/mongo'
 
 export class BPPCatalogService {
   static async addCatalog(data: object) {
@@ -16,7 +15,7 @@ export class BPPCatalogService {
 
     console.log('Catalog saved : ', catalog)
 
-    return catalog as any
+    return catalog
   }
 
   static async fetchCatalogs(id: string | undefined) {

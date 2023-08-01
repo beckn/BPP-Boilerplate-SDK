@@ -4,9 +4,9 @@ import express, { Request, Response } from 'express'
 import { logger } from './utils/logger'
 import { loggerMiddleware } from './middlewares/logger'
 import info from 'bpp-sdk'
-import { error } from 'console'
 import cors from 'cors'
 import { bppSDK } from './models'
+import { openAPIManager } from 'bpp-sdk'
 
 logger.info(JSON.stringify(info))
 
@@ -16,7 +16,9 @@ const main = async () => {
   try {
     logger.debug('Connecting to database')
 
-    bppSDK.initializeDB()
+    openAPIManager.parseOpenAPISpec()
+
+    await bppSDK.initializeDB()
 
     logger.debug('Connected to database')
 

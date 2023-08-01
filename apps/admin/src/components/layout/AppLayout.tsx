@@ -20,7 +20,7 @@ function AppLayout() {
   const addItems: (routes: IRoutes) => MenuItem[] = useCallback(routes => {
     const items: MenuItem[] = routes.map((route: IRoute) => {
       return {
-        key: route.path,
+        key: route.id,
         label: route.label,
         children: route.children ? addItems(route.children) : undefined
       } as MenuItem
@@ -28,11 +28,13 @@ function AppLayout() {
     return items
   }, [])
 
-  const items = useMemo(() => {
-    return addItems(new AppLayoutService(routes).generateSidebar())
+  const menuManager = useMemo(() => {
+    const layout = new AppLayoutService(routes)
+    return {
+      items: addItems(layout.generateSidebar()),
+      layout
+    }
   }, [addItems])
-
-  console.log(items)
 
   return (
     <Layout className="min-h-screen">
@@ -43,10 +45,13 @@ function AppLayout() {
           </Typography.Title>
           <Menu
             theme="dark"
-            items={items}
+            items={menuManager.items}
             mode="inline"
             onClick={({ key }) => {
-              navigator(key)
+              const route = menuManager.layout.findRouteById(key)
+              if (route) {
+                navigator(route.path)
+              }
             }}
             selectedKeys={[location.pathname]}
           />

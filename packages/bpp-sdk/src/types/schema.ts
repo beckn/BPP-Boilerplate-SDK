@@ -1,7 +1,4 @@
-export interface ITableSchema {
-  type: string
-  default?: string
-}
+import { ITableSchema } from './mongoose.types'
 
 export interface ITableJSON {
   name: string

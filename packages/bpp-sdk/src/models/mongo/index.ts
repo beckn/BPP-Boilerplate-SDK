@@ -1,9 +1,11 @@
 import mongoose from 'mongoose'
-import { ITableJSON } from '../../types/schema'
+import { OpenAPISchemaProperty, SchemaPropertyRef } from '../../types/openapi.types'
+import { openAPIManager } from '../../openapi/OpenAPI.manager'
+import { ITableSchema, ITableSchemaObject, SchemaType } from '../../types/mongoose.types'
+import { SpecParser } from '../../openapi/spec_parser'
 
 export class MongoDBModel {
   map: Map<string, mongoose.Model<any, any>> = new Map()
-  constructor() {}
 
   async connect(uri: string) {
     try {
@@ -23,17 +25,31 @@ export class MongoDBModel {
     }
   }
 
-  generate(config: ITableJSON[]) {
-    config.forEach(table => {
-      const schema = new mongoose.Schema(table.schema)
-      if (mongoose.models.hasOwnProperty(table.name)) {
-        delete mongoose.models[table.name]
-      }
-      const model = mongoose.model(table.name, schema)
-      this.map.set(table.name, model)
-    })
+  async generateModel() {
+    const mongoKeys = ['Order', 'Catalog']
+    console.log('Generating Models', mongoKeys)
+    Promise.all(
+      mongoKeys.map(async value => {
+        const property = openAPIManager.spec?.components.schemas[value].properties
 
-    console.log('Generated Models')
+        if (property) {
+          const res = SpecParser.specParse(property)
+          openAPIManager.map.set(value, res)
+          await this.createModel(res, value)
+          console.log('Generated ', value)
+        }
+      })
+    )
+  }
+
+  // Generates the mongoose models from the parsed specifications
+  async createModel(spec: ITableSchema, title: string) {
+    const schema = new mongoose.Schema(spec)
+    if (mongoose.models[title]) {
+      delete mongoose.models[title]
+    }
+    const model = mongoose.model(title, schema)
+    this.map.set(title, model)
   }
 }
 

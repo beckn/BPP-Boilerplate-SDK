@@ -1,18 +1,24 @@
+path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specifications/1.1.0/api/transaction/build/transaction.yaml
+version: 1.1.0
 db:
   mongo:
     mongo_uri: mongodb://localhost:27017
-    tables: 
-      - name: "Catalog"
-        schema: 
-          title:
+tables: 
+  - name: "User Catalog"
+    for: Catalog
+    admin_ui: true
+    schema: 
+      title:
+        type: string
+        as: descriptor.name
+      description:
+        type: string
+        as: descriptor.short_desc
+      category:
+        type: string
+        as: descriptor.category.code
+      images:
+        type: array
+        as: descriptor.images.url
+        icon:
             type: string
-          description:
-            type: string
-          price:
-            type: number
-          category:
-            type: string
-          quantity:
-            type: number
-          icon:
-            type: string      

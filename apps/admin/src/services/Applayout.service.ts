@@ -42,4 +42,8 @@ export class AppLayoutService {
 
     return sidebar
   }
+
+  findRouteById(id: string) {
+    return this.flatRoutes.find(route => route.id === id)
+  }
 }

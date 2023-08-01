@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { CatalogResponse } from '../types/catalog'
-import { BPPCatalogService } from 'bpp-sdk'
+import { ServiceFactory } from 'bpp-sdk'
+
+const catalogService = new ServiceFactory('Catalog')
 
 /**
  * Catalog Controller - Handles all catalog related requests
@@ -10,7 +12,7 @@ export class CatalogController {
     const { id } = req.params
 
     try {
-      const obj = await BPPCatalogService.fetchCatalogs(id)
+      const obj = await catalogService.fetch(id)
 
       return res.status(200).json({
         message: 'Catalog fetched',
@@ -30,7 +32,7 @@ export class CatalogController {
     const data = req.body as CatalogResponse
 
     try {
-      const obj = await BPPCatalogService.updateCatalog(id, data)
+      const obj = await catalogService.update(id, data)
 
       return res.status(200).json({
         message: 'Catalog updated',
@@ -49,7 +51,7 @@ export class CatalogController {
     const data = req.body as CatalogResponse
 
     try {
-      const obj = await BPPCatalogService.addCatalog(data)
+      const obj = await catalogService.add(data)
 
       return res.status(200).json({
         message: 'Catalog created',
@@ -68,7 +70,7 @@ export class CatalogController {
     const { id } = req.params
 
     try {
-      const obj = await BPPCatalogService.deleteCatalog(id)
+      const obj = await catalogService.delete(id)
 
       return res.status(200).json({
         message: 'Catalog deleted',

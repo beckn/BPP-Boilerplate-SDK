@@ -1,6 +1,8 @@
 import { dBManager } from './models'
-import { Option } from './types/option'
+import { openAPIManager } from './openapi/OpenAPI.manager'
+import { Option } from './types/option.types'
 export * from './services/index.service'
+export * from './openapi/OpenAPI.manager'
 /**
  * BPP SDK - SDK Root Class
  */
@@ -9,11 +11,16 @@ export class BppSDK {
 
   constructor(options: Option) {
     this.options = options
+    dBManager.init(this.options)
+    openAPIManager.init(this.options)
   }
 
-  initializeDB() {
+  async initializeDB() {
     console.log('Initializing DB')
-    dBManager.connect(this.options.db)
+    // if(!this.options.db) {
+    //   throw new Error('DB Option is not defined')
+    // }
+    await dBManager.connect()
   }
 }
 
