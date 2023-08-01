@@ -1,9 +1,11 @@
 import { Layout, Menu, Space, Typography, theme } from 'antd'
 import React, { useMemo, useCallback } from 'react'
-import routes, { IRoute, IRoutes } from '../../routes'
+import routes, { IRoute, IRoutePaths, IRoutes } from '../../routes'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import type { MenuProps } from 'antd'
 import { AppLayoutService } from '../../services/Applayout.service'
+import { useRecoilState } from 'recoil'
+import { selectedModelAtom } from '../../atom/selectedmodel.atom'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -11,30 +13,38 @@ function AppLayout() {
   const location = useLocation()
   const navigator = useNavigate()
 
+  const [selectedValue, setSelectedValue] = useRecoilState(selectedModelAtom)
+
   console.log(location.pathname)
 
   const {
     token: { colorBgContainer, colorBgBase }
   } = theme.useToken()
 
-  const addItems: (routes: IRoutes) => MenuItem[] = useCallback(routes => {
-    const items: MenuItem[] = routes.map((route: IRoute) => {
-      return {
-        key: route.id,
-        label: route.label,
-        children: route.children ? addItems(route.children) : undefined
-      } as MenuItem
-    })
-    return items
-  }, [])
+  // const addItems: (routes: IRoutes) => MenuItem[] = useCallback(routes => {
+  //   const items: MenuItem[] = routes.map((route: IRoute) => {
+  //     return {
+  //       key: route.id,
+  //       label: route.label,
+  //       children: route.children ? addItems(route.children) : undefined
+  //     } as MenuItem
+  //   })
+  //   return items
+  // }, [])
+
+  // const menuManager = useMemo(() => {
+  //   const layout = new AppLayoutService(routes)
+  //   return {
+  //     items: addItems(layout.generateSidebar()),
+  //     layout
+  //   }
+  // }, [addItems])
 
   const menuManager = useMemo(() => {
-    const layout = new AppLayoutService(routes)
     return {
-      items: addItems(layout.generateSidebar()),
-      layout
+      items: []
     }
-  }, [addItems])
+  }, [])
 
   return (
     <Layout className="min-h-screen">
@@ -43,7 +53,7 @@ function AppLayout() {
           <Typography.Title level={3} className="text-center">
             BPP Admin
           </Typography.Title>
-          <Menu
+          {/* <Menu
             theme="dark"
             items={menuManager.items}
             mode="inline"
@@ -54,6 +64,21 @@ function AppLayout() {
               }
             }}
             selectedKeys={[location.pathname]}
+          /> */}
+          <Menu
+            theme="dark"
+            items={[
+              {
+                key: '1',
+                label: 'User Catalog',
+                onClick: () => {
+                  setSelectedValue({
+                    name: 'User Catalog'
+                  })
+                  navigator(IRoutePaths.CUSTOM_MODEL)
+                }
+              }
+            ]}
           />
         </Space>
       </Layout.Sider>

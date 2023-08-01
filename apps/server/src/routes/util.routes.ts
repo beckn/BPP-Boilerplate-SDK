@@ -6,4 +6,6 @@ const router = Router()
 
 router.post('/upload', upload.single('file'), UtilityController.uploadFile)
 
+router.get('/custom-models', UtilityController.customModels)
+
 export default router

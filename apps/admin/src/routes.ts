@@ -3,13 +3,15 @@ import Catalog from './pages/app/catalog'
 import AppLayout from './components/layout/AppLayout'
 import AppHome from './pages/app'
 import HomePage from './pages'
+import CustomModel from './pages/app/custom-model'
 
 export enum IRoutePaths {
   HOME = '/',
   APP_HOME = '/app',
   CATALOG = '/app/catalog',
   ADD_CATALOG = '/app/catalog/add',
-  VIEW_CATALOG = '/app/catalog/view'
+  VIEW_CATALOG = '/app/catalog/view',
+  CUSTOM_MODEL = '/app/custom-model'
 }
 
 export interface IRoute {
@@ -60,6 +62,13 @@ const routes: IRoute[] = [
             parent: '2.2'
           }
         ]
+      },
+      {
+        id: '2.3',
+        path: IRoutePaths.CUSTOM_MODEL,
+        showInSidebar: true,
+        label: 'Custom Model',
+        component: CustomModel
       }
     ]
   }

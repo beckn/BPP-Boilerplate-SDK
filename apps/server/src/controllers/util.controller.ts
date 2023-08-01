@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { bppSDK } from '../models'
 
 /**
  * Utility Controller - Handles all utility related requests
@@ -19,6 +20,24 @@ export class UtilityController {
       return res.status(500).json({
         error: {
           message: e.message || 'Unable to upload file'
+        }
+      })
+    }
+  }
+
+  static async customModels(req: Request, res: Response) {
+    try {
+      const tables = bppSDK.options.tables
+
+      if (!tables) throw new Error('Tables not defined')
+
+      return res.status(200).json({
+        data: tables
+      })
+    } catch (e: any) {
+      return res.status(500).json({
+        error: {
+          message: e.message || 'Error Occured'
         }
       })
     }
