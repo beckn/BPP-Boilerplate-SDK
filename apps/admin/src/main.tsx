@@ -5,7 +5,7 @@ import './index.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecoilRoot } from 'recoil'
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

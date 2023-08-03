@@ -1,11 +1,13 @@
 import { Layout, Menu, Space, Typography, theme } from 'antd'
 import React, { useMemo, useCallback } from 'react'
-import routes, { IRoute, IRoutePaths, IRoutes } from '../../routes'
+import routes, { IRoute, IRoutePaths, IRoutes, getRoutePath } from '../../routes'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import type { MenuProps } from 'antd'
 import { AppLayoutService } from '../../services/Applayout.service'
 import { useRecoilState } from 'recoil'
 import { selectedModelAtom } from '../../atom/selectedmodel.atom'
+import { useQuery } from 'react-query'
+import { instance } from '../../util/axiosInstance'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -20,6 +22,18 @@ function AppLayout() {
   const {
     token: { colorBgContainer, colorBgBase }
   } = theme.useToken()
+
+  const { data: customModels } = useQuery(['customModels'], async () => {
+    const res = (await instance.get('custom-models/tables')).data.data
+
+    if (!res) {
+      throw new Error('No custom models found')
+    }
+
+    console.log(res)
+
+    return res
+  })
 
   // const addItems: (routes: IRoutes) => MenuItem[] = useCallback(routes => {
   //   const items: MenuItem[] = routes.map((route: IRoute) => {
@@ -53,30 +67,29 @@ function AppLayout() {
           <Typography.Title level={3} className="text-center">
             BPP Admin
           </Typography.Title>
-          {/* <Menu
-            theme="dark"
-            items={menuManager.items}
-            mode="inline"
-            onClick={({ key }) => {
-              const route = menuManager.layout.findRouteById(key)
-              if (route) {
-                navigator(route.path)
-              }
-            }}
-            selectedKeys={[location.pathname]}
-          /> */}
+
           <Menu
             theme="dark"
+            mode="inline"
             items={[
               {
                 key: '1',
-                label: 'User Catalog',
-                onClick: () => {
-                  setSelectedValue({
-                    name: 'User Catalog'
+                label: 'Services',
+                children:
+                  customModels &&
+                  customModels.map((model: any, key: number) => {
+                    return {
+                      key: key,
+                      label: model.name,
+                      onClick: () => {
+                        setSelectedValue({
+                          ...selectedValue,
+                          name: model.name
+                        })
+                        navigator(getRoutePath(IRoutePaths.CUSTOM_MODEL, [model.name]))
+                      }
+                    }
                   })
-                  navigator(IRoutePaths.CUSTOM_MODEL)
-                }
               }
             ]}
           />

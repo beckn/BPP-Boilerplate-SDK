@@ -8,7 +8,7 @@ export interface ITableSchemaObject {
 }
 
 export interface ITableSchema {
-  [key: string]: ITableSchemaObject | ITableSchema
+  [key: string]: ITableSchemaObject | ITableSchema | [ITableSchemaObject] | [ITableSchema]
 }
 
 export enum SchemaType {

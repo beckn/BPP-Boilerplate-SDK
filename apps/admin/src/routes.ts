@@ -3,7 +3,7 @@ import Catalog from './pages/app/catalog'
 import AppLayout from './components/layout/AppLayout'
 import AppHome from './pages/app'
 import HomePage from './pages'
-import CustomModel from './pages/app/custom-model'
+import CustomModel from './pages/app/custom-model/[:id]'
 
 export enum IRoutePaths {
   HOME = '/',
@@ -11,7 +11,7 @@ export enum IRoutePaths {
   CATALOG = '/app/catalog',
   ADD_CATALOG = '/app/catalog/add',
   VIEW_CATALOG = '/app/catalog/view',
-  CUSTOM_MODEL = '/app/custom-model'
+  CUSTOM_MODEL = '/app/custom-model/:id'
 }
 
 export interface IRoute {
@@ -22,6 +22,20 @@ export interface IRoute {
   label: string
   parent?: string
   children?: IRoute[]
+}
+
+export const getRoutePath = (route: IRoutePaths, args: string[]) => {
+  let pos = 0
+  const path = route
+    .split('/')
+    .map(p => {
+      if (p.startsWith(':')) {
+        return args[pos++]
+      }
+      return p
+    })
+    .join('/')
+  return path
 }
 
 const routes: IRoute[] = [

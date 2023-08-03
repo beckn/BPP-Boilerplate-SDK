@@ -23,17 +23,17 @@ export class SpecParser {
   }
 
   // Parses properties of an OpenAPI Spec
-  static parseProperty(table: OpenAPISchemaProperty): ITableSchema | ITableSchemaObject {
+  static parseProperty(table: OpenAPISchemaProperty): ITableSchema | ITableSchemaObject | [ITableSchema] {
     if (table?.items) {
       if ((table.items as SchemaPropertyRef).$ref != undefined) {
         // Reference the other table
         const data = openAPIManager.getSchemaPropertyFromRef((table.items as SchemaPropertyRef).$ref as string)
 
         if ('type' in data) {
-          return this.parseProperty(data as OpenAPISchemaProperty)
+          return [this.parseProperty(data as OpenAPISchemaProperty) as ITableSchema]
         }
 
-        return this.specParse(data)
+        return [this.specParse(data)]
       } else {
         const data = table.items as OpenAPISchemaProperty
 

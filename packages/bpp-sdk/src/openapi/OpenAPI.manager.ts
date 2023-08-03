@@ -8,7 +8,7 @@ export class OpenAPIManager {
   version: string | undefined
   path: string | undefined
   spec: OpenAPISpec | undefined
-  map: Map<string, ITableSchema | ITableSchemaObject> = new Map()
+  map: Map<string, ITableSchema | ITableSchemaObject | [ITableSchema] | [ITableSchemaObject]> = new Map()
 
   init(options: Option) {
     this.version = options.version

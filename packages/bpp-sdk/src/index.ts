@@ -3,6 +3,7 @@ import { openAPIManager } from './openapi/OpenAPI.manager'
 import { Option } from './types/option.types'
 export * from './services/index.service'
 export * from './openapi/OpenAPI.manager'
+export * from './transformer/index.transformer'
 /**
  * BPP SDK - SDK Root Class
  */

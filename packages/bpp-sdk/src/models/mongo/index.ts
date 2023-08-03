@@ -35,6 +35,7 @@ export class MongoDBModel {
         if (property) {
           const res = SpecParser.specParse(property)
           openAPIManager.map.set(value, res)
+
           await this.createModel(res, value)
           console.log('Generated ', value)
         }
@@ -48,6 +49,8 @@ export class MongoDBModel {
     if (mongoose.models[title]) {
       delete mongoose.models[title]
     }
+    console.log('Creating Model', title)
+    console.log(JSON.stringify(spec?.descriptor, null, 2))
     const model = mongoose.model(title, schema)
     this.map.set(title, model)
   }

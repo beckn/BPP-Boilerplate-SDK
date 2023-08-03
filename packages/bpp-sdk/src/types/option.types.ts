@@ -7,7 +7,8 @@ export interface TableSchema {
 
 export interface ITable {
   name: string
-  as: string
+  for: string
+  admin_ui: boolean
   schema: TableSchema
 }
 
