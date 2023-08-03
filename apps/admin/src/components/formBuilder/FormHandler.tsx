@@ -5,6 +5,7 @@ import BooleanFormHandler from './TypeHandler/Boolean.handler'
 import ObjectHandler from './TypeHandler/Object.handler'
 import UploadHandler from './TypeHandler/Upload.handler'
 import EnumHandler from './TypeHandler/Enum.handler'
+import ReferenceHandler from './TypeHandler/Ref.handler'
 
 function FormHandler({
   schema,
@@ -28,16 +29,20 @@ function FormHandler({
     return <BooleanFormHandler schema={schema} label={label} isArray={isArray} />
   }
 
-  if (type == 'object') {
-    return <ObjectHandler schema={schema} label={label} isArray={isArray} />
-  }
-
   if (type == 'upload') {
     return <UploadHandler label={label} schema={schema} isArray={isArray} />
   }
 
   if (type == 'enum') {
     return <EnumHandler label={label} schema={schema} isArray={isArray} />
+  }
+
+  if (type == 'ref') {
+    return <ReferenceHandler label={label} schema={schema} isArray={isArray} />
+  }
+
+  if (type == 'object') {
+    return <ObjectHandler schema={schema} label={label} isArray={isArray} />
   }
 
   return <React.Fragment>{schema.type}</React.Fragment>

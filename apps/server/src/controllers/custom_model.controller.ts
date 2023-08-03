@@ -32,7 +32,7 @@ export class CustomModelController {
       throw new Error('Data not defined')
     }
 
-    const beckn_data = ObjectTransformer.transformToBecknObject(model.name, data, bppSDK)
+    const beckn_data = await ObjectTransformer.transformToBecknObject(model.name, data, bppSDK)
 
     console.log('beckn_data', JSON.stringify({ beckn_data, data, model }, null, 2))
 

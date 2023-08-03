@@ -1,58 +1,68 @@
-import { BppSDK } from '..'
+import { BppSDK, ServiceFactory } from '..'
 import { SchemaService } from '../services/schema.service'
 
 export class ObjectTransformer {
-  private static customToBecknObject(fromSchema: any, data: any) {
+  private static async customToBecknObject(fromSchema: any, data: any) {
     let state: {
       [key: string]: any
     } = {}
 
     console.log('customToBecknObject', fromSchema, data)
-    Object.keys(fromSchema).forEach(key => {
-      const isArray = fromSchema[key].type.split('[]').length > 1
-      const type = isArray ? fromSchema[key].type.split('[]')[0] : fromSchema[key].type
-      const as = fromSchema[key].as
-      const splitAs = as.split('.')
-      const asSize = as.split('.').length
-      if (['string', 'boolean', 'number', 'enum', 'upload'].includes(type)) {
-        const helper = (value: string[], pos: number, obj: any) => {
-          if (pos == value.length - 1) {
-            obj[value[pos]] = data[key]
-            return obj
-          }
-
-          if (obj[value[pos]] == undefined) obj[value[pos]] = {}
-
-          obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
-          return obj
-        }
-
-        state = helper(splitAs, 0, state)
-      }
-
-      if (type === 'object') {
-        const helper = (value: string[], pos: number, obj: any) => {
-          if (pos == value.length - 1) {
-            if (isArray) {
-              obj[value[pos]] = []
-              for (let i = 0; i < data[key].length; i++) {
-                obj[value[pos]].push(ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key][i]))
-              }
-            } else {
-              obj[value[pos]] = ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key])
+    await Promise.all(
+      Object.keys(fromSchema).map(async key => {
+        const isArray = fromSchema[key].type.split('[]').length > 1
+        const type = isArray ? fromSchema[key].type.split('[]')[0] : fromSchema[key].type
+        const as = fromSchema[key].as
+        const splitAs = as.split('.')
+        const asSize = as.split('.').length
+        if (['string', 'boolean', 'number', 'enum', 'upload'].includes(type)) {
+          const helper = (value: string[], pos: number, obj: any) => {
+            if (pos == value.length - 1) {
+              obj[value[pos]] = data[key]
+              return obj
             }
+
+            if (obj[value[pos]] == undefined) obj[value[pos]] = {}
+
+            obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
             return obj
           }
 
-          if (obj[value[pos]] == undefined) obj[value[pos]] = {}
-
-          obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
-          return obj
+          state = helper(splitAs, 0, state)
         }
 
-        state = helper(splitAs, 0, state)
-      }
-    })
+        if (type === 'object') {
+          const helper = (value: string[], pos: number, obj: any) => {
+            if (pos == value.length - 1) {
+              if (isArray) {
+                obj[value[pos]] = []
+                for (let i = 0; i < data[key].length; i++) {
+                  obj[value[pos]].push(ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key][i]))
+                }
+              } else {
+                obj[value[pos]] = ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key])
+              }
+              return obj
+            }
+
+            if (obj[value[pos]] == undefined) obj[value[pos]] = {}
+
+            obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
+            return obj
+          }
+
+          state = helper(splitAs, 0, state)
+        }
+
+        if (type === 'ref') {
+          const table = fromSchema[key]['$ref']
+
+          const service = new ServiceFactory(table)
+
+          state[key] = await service.fetch(data[key])
+        }
+      })
+    )
 
     return state
   }
@@ -116,14 +126,14 @@ export class ObjectTransformer {
     return state
   }
 
-  static transformToBecknObject(from: string, data: any, sdk: BppSDK) {
+  static async transformToBecknObject(from: string, data: any, sdk: BppSDK) {
     const fromSchema = SchemaService.getCustomSchema(from, sdk)
     // console.log("From Schema", fromSchema)
     const toSchema = SchemaService.getSchema(fromSchema.for)
 
     console.log('From Schema', fromSchema)
 
-    const state = ObjectTransformer.customToBecknObject(fromSchema.schema, data)
+    const state = await ObjectTransformer.customToBecknObject(fromSchema.schema, data)
     return state
   }
 

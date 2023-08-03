@@ -26,7 +26,7 @@ export class MongoDBModel {
   }
 
   async generateModel() {
-    const mongoKeys = ['Order', 'Catalog']
+    const mongoKeys = ['Order', 'Catalog', 'Descriptor']
     console.log('Generating Models', mongoKeys)
     Promise.all(
       mongoKeys.map(async value => {

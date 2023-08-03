@@ -18,30 +18,29 @@ const main = async () => {
 
   // console.log(model?.schema)
 
-  // const res =  ObjectTransformer.transformToBecknObject('User Catalog', {
-  //   "title": "title",
-  //   "description": "sdjfhk",
-  //   "images": {
-  //     "icon": "http://localhost:4000/uploads/fa5a634f-9505-4ac0-bf90-94617a4b3be2.png"
-  //   },
-  //   "category": "1"
-  // }, bpp)
+  const res = await ObjectTransformer.transformToBecknObject(
+    'User_Catalog',
+    {
+      descriptor: '64cbb21784aa2ea9fcb44df3'
+    },
+    bpp
+  )
 
-  // console.log(JSON.stringify(res, null, 2))
+  console.log(JSON.stringify(res, null, 2))
   // const res2 = ObjectTransformer.transformFromBecknObject('Catalog', 'User Catalog',res, bpp)
 
   // console.log(res2)
 
-  const dbService = new ServiceFactory('Catalog')
+  // const dbService = new ServiceFactory('Catalog')
 
-  const data = (await dbService.fetch(undefined)) as any[]
+  // const data = (await dbService.fetch(undefined)) as any[]
 
-  const res = data.map(item => {
-    console.log(item)
-    return ObjectTransformer.transformFromBecknObject('User_Catalog', JSON.parse(JSON.stringify(item)), bpp)
-  })
+  // const res = data.map(item => {
+  //   console.log(item)
+  //   return ObjectTransformer.transformFromBecknObject('User_Catalog', JSON.parse(JSON.stringify(item)), bpp)
+  // })
 
-  console.log(JSON.stringify(res, null, 2))
+  // console.log(JSON.stringify(res, null, 2))
 }
 
 main()

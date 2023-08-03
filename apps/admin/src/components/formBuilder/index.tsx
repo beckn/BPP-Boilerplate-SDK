@@ -109,7 +109,7 @@ function FormBuilder({
             <Button
               className="mt-4"
               onClick={() => {
-                console.log(formState)
+                console.log('LOG FORM STATE', formState)
               }}
             >
               Log

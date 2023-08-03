@@ -46,6 +46,7 @@ const main = async () => {
     app.use('/catalog', require('./routes/catalog.routes').default)
     app.use('/util', require('./routes/util.routes').default)
     app.use('/custom-models', require('./routes/custom.routes').default)
+    app.use('/models', require('./routes/model.routes').default)
 
     app.listen(process.env.PORT, () => {
       logger.info(`Server is listening on port ${process.env.PORT}`)
