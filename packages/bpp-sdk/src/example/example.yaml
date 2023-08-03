@@ -1,0 +1,33 @@
+path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specifications/1.1.0/api/transaction/build/transaction.yaml
+version: 1.1.0
+db:
+  mongo:
+    mongo_uri: mongodb://localhost:27017
+tables: 
+  - name: "User_Catalog"
+    for: Catalog
+    admin_ui: true
+    schema: 
+      title:
+        type: string
+        as: descriptor.name
+      description:
+        type: string
+        as: descriptor.short_desc
+      category:
+        type: enum
+        enum: 
+          - code: "1"
+            name: "Category 1"
+          - code: "2"
+            name: "Category 2"
+          - code: "3"
+            name: "Category 3"
+        as: descriptor.code
+      images:
+        type: object[]
+        as: descriptor.images
+        children:
+          icon:
+              type: upload
+              as: url
