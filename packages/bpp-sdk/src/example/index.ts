@@ -1,5 +1,5 @@
 import path from 'path'
-import { BppSDK, ServiceFactory } from '../index'
+import { BppSDK, CallbackFactory, ServiceFactory } from '../index'
 import { dBManager } from '../models'
 import { openAPIManager } from '../openapi/OpenAPI.manager'
 import yaml from 'yaml'
@@ -18,29 +18,52 @@ const main = async () => {
 
   // console.log(model?.schema)
 
-  const res = await ObjectTransformer.transformToBecknObject(
-    'User_Catalog',
-    {
-      descriptor: '64cbb21784aa2ea9fcb44df3'
-    },
-    bpp
-  )
+  //   console.log((openAPIManager.map.get('Provider') as any).items)
 
-  console.log(JSON.stringify(res, null, 2))
-  // const res2 = ObjectTransformer.transformFromBecknObject('Catalog', 'User Catalog',res, bpp)
+  //   const data = {
+  //     "name": "Sarfraz",
+  //     "code": "2031",
+  //     "images": [
+  //         {
+  //             "icon": "http://localhost:4000/uploads/9ce707ec-1f82-4225-8e42-ee6709cb13cc.jpg"
+  //         }
+  //     ],
+  //     "category": "AUTO",
+  //     "items": [
+  //         {
+  //             "id": "20",
+  //             "code": "6465",
+  //             "images": [
+  //                 {
+  //                     "icon": "http://localhost:4000/uploads/d601fc1d-42dd-455d-bb73-0ff5a0ab0249.jpg"
+  //                 }
+  //             ],
+  //             "price": {
+  //                 "value": "200"
+  //             }
+  //         }
+  //     ]
+  // }
 
-  // console.log(res2)
+  //   const obj = await ObjectTransformer.transformToBecknObject('Provider', data, bpp)
 
-  // const dbService = new ServiceFactory('Catalog')
+  //   console.log('obj', obj)
 
-  // const data = (await dbService.fetch(undefined)) as any[]
+  // const serviceFactory = new ServiceFactory('Provider')
 
-  // const res = data.map(item => {
-  //   console.log(item)
-  //   return ObjectTransformer.transformFromBecknObject('User_Catalog', JSON.parse(JSON.stringify(item)), bpp)
+  //   const res = await serviceFactory.add(obj)
+
+  //   console.log('res', res)
+
+  // const res = await serviceFactory.fetch(undefined)
+
+  // res.map((item : any) => {
+  //   // console.log()
+
+  //   const obj = ObjectTransformer.transformFromBecknObject('Provider', JSON.parse(JSON.stringify(item)), bpp)
   // })
 
-  // console.log(JSON.stringify(res, null, 2))
+  const callback = new CallbackFactory()
 }
 
 main()

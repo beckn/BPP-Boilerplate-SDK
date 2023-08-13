@@ -9,6 +9,8 @@ export class SpecParser {
 
     // console.log(spec)
 
+    if (!spec) return res
+
     Object.keys(spec).forEach(key => {
       const table = spec[key]
 
@@ -49,8 +51,7 @@ export class SpecParser {
     } else if (table?.allOf) {
       // Reference the other table
       const data = openAPIManager.getSchemaPropertyFromRef(table.allOf[0].$ref)
-
-      if ('type' in data) {
+      if (data && 'type' in data) {
         return this.parseProperty(data as OpenAPISchemaProperty)
       }
 

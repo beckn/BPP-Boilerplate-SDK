@@ -18,9 +18,28 @@ export interface DBOption {
   }
 }
 
+export interface AppOption {
+  id: string
+  uri: string
+  unique_id: string
+  ttl: string
+  city: string
+  country: string
+  private_key: string
+  public_key: string
+}
+
+export interface GatewayOption {
+  uri: string
+  registry_uri: string
+}
+
 export interface Option {
   db?: DBOption
   path: string
   version: string
+  domain: string
   tables?: ITable[]
+  app?: AppOption
+  gateway?: GatewayOption
 }

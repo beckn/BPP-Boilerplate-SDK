@@ -4,6 +4,9 @@ import { Option } from './types/option.types'
 export * from './services/index.service'
 export * from './openapi/OpenAPI.manager'
 export * from './transformer/index.transformer'
+export * from './middlewares/index'
+export * from './util/index.util'
+
 /**
  * BPP SDK - SDK Root Class
  */

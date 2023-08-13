@@ -26,13 +26,13 @@ export class MongoDBModel {
   }
 
   async generateModel() {
-    const mongoKeys = ['Order', 'Catalog', 'Descriptor']
-    console.log('Generating Models', mongoKeys)
+    // console.log('Generating Models', mongoKeys)
     Promise.all(
-      mongoKeys.map(async value => {
+      Object.keys(openAPIManager.spec?.components.schemas || {}).map(async value => {
         const property = openAPIManager.spec?.components.schemas[value].properties
 
         if (property) {
+          console.log('Generating Model', value, property)
           const res = SpecParser.specParse(property)
           openAPIManager.map.set(value, res)
 
@@ -50,7 +50,7 @@ export class MongoDBModel {
       delete mongoose.models[title]
     }
     console.log('Creating Model', title)
-    console.log(JSON.stringify(spec?.descriptor, null, 2))
+    console.log(JSON.stringify(spec, null, 2))
     const model = mongoose.model(title, schema)
     this.map.set(title, model)
   }

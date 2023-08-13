@@ -16,7 +16,7 @@ export class ObjectTransformer {
         const splitAs = as.split('.')
         const asSize = as.split('.').length
         if (['string', 'boolean', 'number', 'enum', 'upload'].includes(type)) {
-          const helper = (value: string[], pos: number, obj: any) => {
+          const helper = async (value: string[], pos: number, obj: any) => {
             if (pos == value.length - 1) {
               obj[value[pos]] = data[key]
               return obj
@@ -24,34 +24,36 @@ export class ObjectTransformer {
 
             if (obj[value[pos]] == undefined) obj[value[pos]] = {}
 
-            obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
+            obj[value[pos]] = await helper(value, pos + 1, obj[value[pos]])
             return obj
           }
 
-          state = helper(splitAs, 0, state)
+          state = await helper(splitAs, 0, state)
         }
 
         if (type === 'object') {
-          const helper = (value: string[], pos: number, obj: any) => {
+          const helper = async (value: string[], pos: number, obj: any) => {
             if (pos == value.length - 1) {
               if (isArray) {
                 obj[value[pos]] = []
                 for (let i = 0; i < data[key].length; i++) {
-                  obj[value[pos]].push(ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key][i]))
+                  obj[value[pos]].push(
+                    await ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key][i])
+                  )
                 }
               } else {
-                obj[value[pos]] = ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key])
+                obj[value[pos]] = await ObjectTransformer.customToBecknObject(fromSchema[key].children, data[key])
               }
               return obj
             }
 
             if (obj[value[pos]] == undefined) obj[value[pos]] = {}
 
-            obj[value[pos]] = helper(value, pos + 1, obj[value[pos]])
+            obj[value[pos]] = await helper(value, pos + 1, obj[value[pos]])
             return obj
           }
 
-          state = helper(splitAs, 0, state)
+          state = await helper(splitAs, 0, state)
         }
 
         if (type === 'ref') {
@@ -104,6 +106,7 @@ export class ObjectTransformer {
           if (pos == value.length - 1) {
             if (isArray) {
               obj = []
+              console.log({ obj, schemaData, value, pos })
               for (let i = 0; i < schemaData[value[pos]].length; i++) {
                 obj.push(ObjectTransformer.customFromBecknObject(fromSchema[key].children, schemaData[value[pos]][i]))
               }

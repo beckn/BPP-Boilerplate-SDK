@@ -24,6 +24,11 @@ export class OpenAPIManager {
   }
 
   getSchemaPropertyFromRef(ref: string) {
+    console.log(ref)
+    if (ref == undefined) {
+      console.log('ref is undefined', ref)
+      return
+    }
     const arr = ref.split('/').slice(1)
 
     if (!this.spec) throw new Error('Error Occurred Parsing Open API Spec')

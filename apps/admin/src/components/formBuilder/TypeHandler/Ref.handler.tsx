@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import { instance } from '../../../util/axiosInstance'
-import { Select } from 'antd'
+import { Form, Select } from 'antd'
 import { FormBuilderContext } from '..'
 
 function ReferenceHandler({
@@ -53,21 +53,23 @@ function ReferenceHandler({
 
   return (
     <div className="w-full">
-      <Select
-        options={optionList.map((item: any) => {
-          return {
-            label: item[schema['$ref_key']],
-            value: item['_id']
-          }
-        })}
-        onChange={value => {
-          console.log('Reference on CHange', value)
-          updateFormStateByLabel(label, value)
-        }}
-        showSearch
-        placeholder="Choose your option"
-        className="w-full"
-      />
+      <Form.Item>
+        <Select
+          options={optionList.map((item: any) => {
+            return {
+              label: item[schema['$ref_key']],
+              value: item['_id']
+            }
+          })}
+          onChange={value => {
+            console.log('Reference on CHange', value)
+            updateFormStateByLabel(label, value)
+          }}
+          showSearch
+          placeholder="Choose your option"
+          className="w-full"
+        />
+      </Form.Item>
     </div>
   )
 }
