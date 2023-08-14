@@ -1,6 +1,9 @@
 import { AcknowledgementService, CallbackFactory, ServiceFactory, contextBuilder } from 'bpp-sdk'
 import { Request, Response } from 'express'
 import { bppSDK } from '../models'
+import socket from '../index.socket'
+import { redisClient } from '../utils/redis'
+import { SocketEvents } from 'shared-utils/events'
 
 const callBack = new CallbackFactory()
 const service = new ServiceFactory('Provider')
@@ -39,22 +42,43 @@ export class BecknController {
   }
 
   static async select(req: Request, res: Response) {
-    const { context, message } = req.body
+    const { context } = req.body
     const providers = await service.fetch(undefined)
 
-    providers.forEach((provider: any) => {
+    providers.forEach(async (provider: any) => {
       const items = provider.items || []
 
-      const quote = {
-        id: 'quote_id',
-        price: 0
+      console.log('provider', provider)
+
+      const code = provider.descriptor.code
+      // socket.io.to('')
+
+      // const users = await redisClient.hGetAll('users')
+
+      const users = await redisClient.hGetAll('users')
+
+      console.log('users', users)
+      console.log('code', code)
+      const user = Object.keys(users).find((key: any) => users[key] === code)
+
+      if (user) {
+        socket.io.to(user).emit(SocketEvents.ON_SELECT, {
+          transactionId: context.transaction_id,
+          context,
+          items: provider.items
+        })
       }
 
-      items.forEach((item: any) => {
-        quote.price += parseFloat(item.price.value)
-      })
+      // const quote = {
+      //   id: 'quote_id',
+      //   price: 0
+      // }
 
-      BecknController.onSelect(context, provider.items, [], quote)
+      // items.forEach((item: any) => {
+      //   quote.price += parseFloat(item.price.value)
+      // })
+
+      // BecknController.onSelect(context, provider.items, [], quote)
     })
 
     return res.json(new AcknowledgementService().getAck())

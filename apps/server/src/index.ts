@@ -7,6 +7,8 @@ import info from 'bpp-sdk'
 import cors from 'cors'
 import { bppSDK } from './models'
 import { openAPIManager } from 'bpp-sdk'
+import { redisClient } from './utils/redis'
+import socket from './index.socket'
 
 logger.info(JSON.stringify(info))
 
@@ -21,6 +23,14 @@ const main = async () => {
     await bppSDK.initializeDB()
 
     logger.debug('Connected to database')
+
+    logger.debug('Connecting to redis')
+
+    await redisClient.connect()
+
+    await redisClient.flushAll()
+
+    logger.debug('Connected to redis')
 
     app.use(
       cors({
@@ -46,9 +56,13 @@ const main = async () => {
     app.use('/util', require('./routes/util.routes').default)
     app.use('/custom-models', require('./routes/custom.routes').default)
     app.use('/models', require('./routes/model.routes').default)
-    app.use('/', require('./routes/beckn.routes').default)
 
     // Beckn APIs
+    app.use('/', require('./routes/beckn.routes').default)
+
+    await socket.main()
+
+    socket.listen()
 
     app.listen(process.env.PORT, () => {
       logger.info(`Server is listening on port ${process.env.PORT}`)
