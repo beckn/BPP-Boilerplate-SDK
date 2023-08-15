@@ -19,8 +19,8 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "recoil": "^0.7.7",
-    "socket.io-client": "^4.7.2",
-    "shared-utils": "*"
+    "shared-utils": "*",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
