@@ -5,6 +5,15 @@ version: 1.1.0
 db:
   mongo:
     mongo_uri: mongodb://localhost:27017
+    models:
+    - name: "Transaction"
+      schema:
+        txn_id:
+          type: ObjectId
+        order_id:
+          type: ObjectId
+          ref: Order
+
 tables:     
   - name: "Descriptor"
     for: Descriptor

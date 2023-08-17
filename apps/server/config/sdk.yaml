@@ -3,10 +3,28 @@ version: 1.1.0
 db:
   mongo:
     mongo_uri: mongodb://localhost:27017
+    models:
+    - name: "Transaction"
+      schema:
+        txn_id:
+          type: string
+        order_id:
+          type: ObjectId
+          ref: Order
+          required: true
+        status:
+          type: string
+          default: "initiated"
+          enum:
+            - "initiated"
+            - "in_progress"
+            - "completed"
+            - "cancelled"
+            - "confirmed"
 tables:     
   - name: "Descriptor"
-    for: Descriptor
     admin_ui: true
+    for: Descriptor
     schema: 
       title: 
         type: string
@@ -33,24 +51,24 @@ tables:
         as: descriptor
         $ref: Descriptor
         $ref_key: name
-  - name: Provider
+  - name: "Driver_Details"
     for: Provider
     admin_ui: true
     schema:
-      name:
+      driver_name:
         type: string
         as: descriptor.name
-      code:
+      driver_code:
         type: string
         as: descriptor.code
-      images:
+      driver_images:
         type: object[]
         as: descriptor.images
         children:
           icon:
             type: upload
             as: url
-      category:
+      vehicle_category:
         type: enum
         as: category_id
         enum:
@@ -62,7 +80,7 @@ tables:
           name: "MICRO"
         - code: "SEDAN"
           name: "SEDAN"
-      items:
+      packages:
         type: object[]
         as: items
         children:
@@ -76,29 +94,6 @@ tables:
               value:
                 type: string
                 as: value
-      # title:
-      #   type: string
-      #   as: descriptor.name
-      # description:
-      #   type: string
-      #   as: descriptor.short_desc
-      # category:
-      #   type: enum
-      #   enum: 
-      #     - code: "1"
-      #       name: "Category 1"
-      #     - code: "2"
-      #       name: "Category 2"
-      #     - code: "3"
-      #       name: "Category 3"
-      #   as: descriptor.code
-      # images:
-      #   type: object[]
-      #   as: descriptor.images
-      #   children:
-      #     icon:
-      #         type: upload
-      #         as: url
 
 gateway:
     uri: https://gateway.becknprotocol.io/bg

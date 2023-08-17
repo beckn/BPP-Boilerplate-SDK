@@ -26,9 +26,14 @@ export class ServiceFactory {
     }
   }
 
-  async update(id: string, data: object) {
-    const updated_data = await this.model.findByIdAndUpdate(id, data)
-    return updated_data
+  async update(query: string | object, data: object) {
+    if (typeof query === 'object') {
+      const updated_data = await this.model.find(query).updateMany(data)
+      return updated_data
+    } else {
+      const updated_data = await this.model.findByIdAndUpdate(query, data)
+      return updated_data
+    }
   }
 
   async delete(id: string) {

@@ -6,13 +6,63 @@ import yaml from 'yaml'
 import fs from 'fs'
 import { ObjectTransformer } from '../transformer/object.transformer'
 import mongoose from 'mongoose'
+import { SpecParser } from '../openapi/spec_parser'
 
 const bpp = new BppSDK(yaml.parse(fs.readFileSync(path.resolve('./src/example/example.yaml'), 'utf8')))
 
 const main = async () => {
   openAPIManager.parseOpenAPISpec()
 
-  await bpp.initializeDB()
+  console.log(openAPIManager.spec?.components.schemas['Payments'])
+
+  const spec = SpecParser.specParse(openAPIManager.spec?.components.schemas['Order'].properties as any)
+
+  // console.log(spec)
+  console.log((spec.fulfillments as any)[0].stops[0].location)
+
+  // await bpp.initializeDB()
+
+  // const order = {
+  //   provider: {
+  //     descriptor: {
+  //       name: 'Sarfraz Alam',
+  //       code: 'sarfraz-alam',
+  //       images: [],
+  //       media: []
+  //     },
+  //     category_id: 'AUTO',
+  //     fulfillments: [],
+  //     payments: [],
+  //     items: [],
+  //     categories: [],
+  //     locations: [],
+  //     offers: [],
+  //     tags: [],
+  //     __v: 0
+  //   },
+  //   items: [
+  //     {
+  //       descriptor: [],
+  //       creator: [],
+  //       price: [],
+  //       id: '13497dkhi88678',
+  //       add_ons: [],
+  //       cancellation_terms: [],
+  //       replacement_terms: [],
+  //       return_terms: [],
+  //       tags: [],
+  //     }
+  //   ],
+  //   payments: [ { collected_by: 'BPP', status: 'NOT_PAID' } ],
+  //   quote: { id: 'znoqrq0', price: { value: '300' } }
+  // }
+
+  // const orderService = new ServiceFactory('Order')
+
+  // console.log(openAPIManager.map.get('Order'))
+  // const res = await orderService.add(order)
+
+  // console.log('res', res)
 
   // const model = (mongoose.model as any)['Order'] as mongoose.Model<any> | undefined
 
@@ -63,7 +113,7 @@ const main = async () => {
   //   const obj = ObjectTransformer.transformFromBecknObject('Provider', JSON.parse(JSON.stringify(item)), bpp)
   // })
 
-  const callback = new CallbackFactory()
+  // const callback = new CallbackFactory()
 }
 
 main()

@@ -4,9 +4,13 @@ import { bppSDK } from '../models'
 import socket from '../index.socket'
 import { redisClient } from '../utils/redis'
 import { SocketEvents } from 'shared-utils/events'
+import { logger } from '../utils/logger'
 
 const callBack = new CallbackFactory()
-const service = new ServiceFactory('Provider')
+const ProviderService = new ServiceFactory('Provider')
+const transactionService = new ServiceFactory('Transaction')
+const orderService = new ServiceFactory('Order')
+
 export class BecknController {
   /** Helpers */
   static async updateLocation(providerData: any, _id: string) {
@@ -114,21 +118,25 @@ export class BecknController {
       targetUri: context?.bap_uri || ''
     }
 
-    console.log('init', data)
     const callbackContext = await contextBuilder(data, bppSDK)
 
-    const order = message.order
+    const order = {
+      ...message.order
+    }
+
+    const orderData = await orderService.add(order)
+
+    const transactionData = await transactionService.add({
+      txn_id: context.transaction_id,
+      order_id: orderData._id
+    })
+
+    logger.info('Transaction Data saved', transactionData._id)
 
     const callbackMessage = {
       context: callbackContext,
       message: {
-        order: {
-          ...order,
-          items: order.items,
-          offers: [],
-          quote: order.quote,
-          billing: order.billing
-        }
+        order: order
       }
     }
 
@@ -141,13 +149,7 @@ export class BecknController {
     const context = req.body.context
     const message = req.body.message
 
-    const _provider = message.order.provider
-
-    const provider = new ServiceFactory('Provider')
-
-    console.log('provider', _provider)
-
-    const providerData = await provider.fetch(_provider._id)
+    const providerData = message.order.provider
 
     if (providerData) {
       const code = providerData.descriptor.code
@@ -156,7 +158,6 @@ export class BecknController {
       const user = Object.keys(users).find((key: any) => users[key] === code)
       if (user) {
         socket.io.to(user).emit(SocketEvents.ON_CONFIRM, {
-          _id: providerData._id,
           transactionId: context.transaction_id,
           context,
           items: message.order.items
@@ -178,6 +179,10 @@ export class BecknController {
       },
       bppSDK
     )
+
+    const transactionData = await transactionService.update({ txn_id: context.transaction_id }, { status: 'confirmed' })
+
+    logger.info(`Transaction Data updated ${JSON.stringify(transactionData)}`)
 
     const callbackMessage = {
       context: callbackContext,

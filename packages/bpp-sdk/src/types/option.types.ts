@@ -12,9 +12,21 @@ export interface ITable {
   schema: TableSchema
 }
 
+export interface ICustomModels {
+  name: string
+  schema: {
+    [key: string]: {
+      type: string
+      ref?: string
+      required?: boolean
+    }
+  }
+}
+
 export interface DBOption {
   mongo?: {
     mongo_uri: string
+    models: ICustomModels[]
   }
 }
 

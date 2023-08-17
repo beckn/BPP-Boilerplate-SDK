@@ -4,6 +4,7 @@ import AppLayout from './components/layout/AppLayout'
 import AppHome from './pages/app'
 import HomePage from './pages'
 import CustomModel from './pages/app/custom-model/[:id]'
+import OrderPage from './pages/app/order'
 
 export enum IRoutePaths {
   HOME = '/',
@@ -11,7 +12,8 @@ export enum IRoutePaths {
   CATALOG = '/app/catalog',
   ADD_CATALOG = '/app/catalog/add',
   VIEW_CATALOG = '/app/catalog/view',
-  CUSTOM_MODEL = '/app/custom-model/:id'
+  CUSTOM_MODEL = '/app/custom-model/:id',
+  ORDER = '/app/order'
 }
 
 export interface IRoute {
@@ -24,7 +26,7 @@ export interface IRoute {
   children?: IRoute[]
 }
 
-export const getRoutePath = (route: IRoutePaths, args: string[]) => {
+export const getRoutePath = (route: IRoutePaths, args: string[] = []) => {
   let pos = 0
   const path = route
     .split('/')
@@ -83,6 +85,13 @@ const routes: IRoute[] = [
         showInSidebar: true,
         label: 'Custom Model',
         component: CustomModel
+      },
+      {
+        id: '27879',
+        path: IRoutePaths.ORDER,
+        showInSidebar: true,
+        label: 'Order',
+        component: OrderPage
       }
     ]
   }

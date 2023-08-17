@@ -56,6 +56,7 @@ const main = async () => {
     app.use('/util', require('./routes/util.routes').default)
     app.use('/custom-models', require('./routes/custom.routes').default)
     app.use('/models', require('./routes/model.routes').default)
+    app.use('/order', require('./routes/order.routes').default)
 
     // Beckn APIs
     app.use('/', require('./routes/beckn.routes').default)

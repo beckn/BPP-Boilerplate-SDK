@@ -20,6 +20,7 @@ class DBManager {
   init(option: Option) {
     this.db = option.db
     this.options = option
+    MongoDB.setOptions(option)
   }
 
   async parseOpenAPISpec() {

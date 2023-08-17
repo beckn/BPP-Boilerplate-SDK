@@ -14,6 +14,8 @@ export class SpecParser {
     Object.keys(spec).forEach(key => {
       const table = spec[key]
 
+      console.log('Parsing', key)
+
       const data = this.parseProperty(table)
 
       openAPIManager.map.set(key, data)
@@ -26,16 +28,23 @@ export class SpecParser {
 
   // Parses properties of an OpenAPI Spec
   static parseProperty(table: OpenAPISchemaProperty): ITableSchema | ITableSchemaObject | [ITableSchema] {
+    console.log(`Parsing ${JSON.stringify(table, null, 2)}`)
     if (table?.items) {
       if ((table.items as SchemaPropertyRef).$ref != undefined) {
         // Reference the other table
         const data = openAPIManager.getSchemaPropertyFromRef((table.items as SchemaPropertyRef).$ref as string)
 
-        if ('type' in data) {
+        console.log('data', data)
+
+        if ('type' in data && typeof data.type === 'string') {
           return [this.parseProperty(data as OpenAPISchemaProperty) as ITableSchema]
         }
 
-        return [this.specParse(data)]
+        const res = this.specParse(data)
+
+        console.log('res', res)
+
+        return [res]
       } else {
         const data = table.items as OpenAPISchemaProperty
 
@@ -55,7 +64,9 @@ export class SpecParser {
         return this.parseProperty(data as OpenAPISchemaProperty)
       }
 
-      return this.specParse(data)
+      const res = this.specParse(data)
+
+      return res
     } else {
       const data: ITableSchemaObject = {
         type: table.type in SchemaType ? SchemaType[table.type as keyof typeof SchemaType] : SchemaType['string']

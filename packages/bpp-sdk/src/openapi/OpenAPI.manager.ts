@@ -19,12 +19,11 @@ export class OpenAPIManager {
     if (!this.path) throw new Error('Error Occurred Parsing Open API Spec')
 
     const json = yaml.parse(fs.readFileSync(this.path, 'utf-8'))
-    console.log(json)
+    // console.log(json)
     this.spec = json as OpenAPISpec
   }
 
   getSchemaPropertyFromRef(ref: string) {
-    console.log(ref)
     if (ref == undefined) {
       console.log('ref is undefined', ref)
       return
@@ -38,6 +37,8 @@ export class OpenAPIManager {
     for (let i = 0; i < arr.length; i++) {
       schema = schema[arr[i]] as any
     }
+
+    // console.log('Schema', schema)
 
     if (schema.type === 'string') {
       return {

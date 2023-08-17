@@ -3,9 +3,11 @@ import { OpenAPISchemaProperty, SchemaPropertyRef } from '../../types/openapi.ty
 import { openAPIManager } from '../../openapi/OpenAPI.manager'
 import { ITableSchema, ITableSchemaObject, SchemaType } from '../../types/mongoose.types'
 import { SpecParser } from '../../openapi/spec_parser'
+import { Option } from '../../types/option.types'
 
 export class MongoDBModel {
   map: Map<string, mongoose.Model<any, any>> = new Map()
+  options: Option | undefined
 
   async connect(uri: string) {
     try {
@@ -14,6 +16,10 @@ export class MongoDBModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  setOptions(options: Option) {
+    this.options = options
   }
 
   async disconnect() {
@@ -26,8 +32,10 @@ export class MongoDBModel {
   }
 
   async generateModel() {
-    // console.log('Generating Models', mongoKeys)
-    Promise.all(
+    if (!this.options) throw new Error('Error Occurred Parsing Open API Spec')
+
+    /********************* Generating Open API Specification Models *********************/
+    await Promise.all(
       Object.keys(openAPIManager.spec?.components.schemas || {}).map(async value => {
         const property = openAPIManager.spec?.components.schemas[value].properties
 
@@ -41,6 +49,17 @@ export class MongoDBModel {
         }
       })
     )
+
+    console.log('------------------Generated Custom Models------------------')
+
+    /********************* Generating Custom Models *********************/
+    await Promise.all(
+      (this.options.db?.mongo?.models || []).map(async items => {
+        console.log('Generating Model', items.name)
+
+        await this.createModel(items.schema, items.name)
+      })
+    )
   }
 
   // Generates the mongoose models from the parsed specifications
@@ -50,7 +69,7 @@ export class MongoDBModel {
       delete mongoose.models[title]
     }
     console.log('Creating Model', title)
-    console.log(JSON.stringify(spec, null, 2))
+    console.log('Schema', schema)
     const model = mongoose.model(title, schema)
     this.map.set(title, model)
   }

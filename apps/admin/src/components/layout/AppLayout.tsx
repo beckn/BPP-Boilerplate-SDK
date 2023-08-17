@@ -79,7 +79,7 @@ function AppLayout() {
                   customModels &&
                   customModels.map((model: any, key: number) => {
                     return {
-                      key: key,
+                      key: `1.${key}`,
                       label: model.name,
                       onClick: () => {
                         setSelectedValue({
@@ -90,6 +90,13 @@ function AppLayout() {
                       }
                     }
                   })
+              },
+              {
+                key: '2',
+                label: 'Orders',
+                onClick: () => {
+                  navigator(getRoutePath(IRoutePaths.ORDER))
+                }
               }
             ]}
           />
