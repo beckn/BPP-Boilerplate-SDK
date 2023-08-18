@@ -24,6 +24,8 @@ export class BecknController {
   static async search(req: Request, res: Response) {
     const { context, message } = req.body
 
+    console.log('search', req.body)
+
     const callbackContext = await contextBuilder(
       {
         action: '/on_search',
@@ -192,5 +194,40 @@ export class BecknController {
     }
 
     await callBack.send(callbackMessage, {}, '/on_confirm', bppSDK)
+  }
+
+  static async status(req: Request, res: Response) {
+    console.log('status', req.body)
+
+    const { context, message } = req.body
+
+    BecknController.onStatus(context, message.order_id)
+
+    return res.json(new AcknowledgementService().getAck())
+  }
+
+  static async onStatus(context: any, order_id: any) {
+    console.log('onStatus', context, order_id)
+    const callbackContext = await contextBuilder(
+      {
+        action: '/on_status',
+        transactionId: context.transaction_id || '',
+        messageId: context.message_id || '',
+        targetId: context.bap_id || '',
+        targetUri: context.bap_uri || ''
+      },
+      bppSDK
+    )
+
+    const order = await orderService.fetch(order_id)
+
+    const callbackMessage = {
+      context: callbackContext,
+      message: {
+        order
+      }
+    }
+
+    await callBack.send(callbackMessage, {}, '/on_status', bppSDK)
   }
 }

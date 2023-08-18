@@ -153,7 +153,7 @@ function useFormHandler({
         [key: string]: any
       }
 
-      console.log('getValueByLabel', value)
+      // console.log('getValueByLabel', value)
 
       return value
     },

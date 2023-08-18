@@ -6,6 +6,7 @@ import ObjectHandler from './TypeHandler/Object.handler'
 import UploadHandler from './TypeHandler/Upload.handler'
 import EnumHandler from './TypeHandler/Enum.handler'
 import ReferenceHandler from './TypeHandler/Ref.handler'
+import UUIDHandler from './TypeHandler/UUID.handler'
 
 function FormHandler({
   schema,
@@ -43,6 +44,10 @@ function FormHandler({
 
   if (type == 'object') {
     return <ObjectHandler schema={schema} label={label} isArray={isArray} />
+  }
+
+  if (type == 'uuid') {
+    return <UUIDHandler schema={schema} label={label} isArray={isArray} />
   }
 
   return <React.Fragment>{schema.type}</React.Fragment>

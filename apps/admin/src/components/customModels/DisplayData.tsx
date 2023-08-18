@@ -1,8 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { CustomModelService } from '../../services/CustomModel.service'
-import { Table, Typography, message } from 'antd'
+import { Modal, Table, Typography, message } from 'antd'
 import { useQuery } from 'react-query'
 import { instance } from '../../util/axiosInstance'
+import Loader from '../ui/Loader'
+import ReactJson from 'react-json-view'
 
 function DisplayData({
   modelData,
@@ -17,6 +19,14 @@ function DisplayData({
   onEdit: (record: any) => void
   onDelete: (record: any) => Promise<void>
 }) {
+  const [modalData, setModalData] = useState({
+    visible: false,
+    data: null
+  } as {
+    visible: boolean
+    data: any
+  })
+
   const { data, isError, isLoading, refetch } = useQuery(['customModel', modelData], async () => {
     console.log('schema', modelData)
     const params = new URLSearchParams({
@@ -39,9 +49,29 @@ function DisplayData({
   const columns = useMemo(() => {
     if (!modelData) return []
     return CustomModelService.getModelColumns(modelData.schema, {
-      edit: (record: any) => {
+      edit: async (record: any) => {
         onEdit(record)
         console.log('edit', record)
+      },
+      view: async (record: any) => {
+        console.log('view', record)
+
+        setModalData({
+          visible: true,
+          data: null
+        })
+
+        const res = await instance.get(`models`, {
+          params: {
+            id: record.key,
+            model: modelData.for
+          }
+        })
+
+        setModalData({
+          visible: true,
+          data: res.data.data
+        })
       },
       delete: (record: any) => {
         console.log('delete', record)
@@ -56,7 +86,7 @@ function DisplayData({
   console.log('DisplayData', data)
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Loader />
   }
 
   if (isError) {
@@ -66,6 +96,21 @@ function DisplayData({
   return (
     <div className="w-full py-4">
       <Table columns={columns} dataSource={data} className="w-full" />
+
+      <Modal
+        title="View"
+        open={modalData.visible}
+        onCancel={() => {
+          setModalData({
+            visible: false,
+            data: {}
+          })
+        }}
+        footer={null}
+        width={'80%'}
+      >
+        {modalData.data == null ? <Loader /> : <ReactJson src={modalData.data} theme={'monokai'} collapsed />}
+      </Modal>
     </div>
   )
 }

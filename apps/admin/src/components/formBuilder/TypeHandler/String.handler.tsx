@@ -1,6 +1,7 @@
 import { Form, Input } from 'antd'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { FormBuilderContext } from '..'
+import _ from 'lodash'
 
 const StringRender = ({
   type,
@@ -21,10 +22,18 @@ const StringRender = ({
     }
   }, [value, onChange])
 
+  const cleanLabel = useMemo(() => {
+    const _label = label.split('.')[label.split('.').length - 1]
+
+    return _.words(_label)
+      .map(l => _.capitalize(l))
+      .join(' ')
+  }, [label])
+
   return (
-    <Form.Item name={label} label={label.split('.')[label.split('.').length - 1]} key={label}>
+    <Form.Item name={label} label={cleanLabel} key={label}>
       <Input
-        placeholder={label.split('.')[label.split('.').length - 1]}
+        placeholder={cleanLabel}
         onChange={e => {
           setValue(e.target.value)
         }}

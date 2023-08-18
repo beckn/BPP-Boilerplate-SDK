@@ -15,7 +15,7 @@ export class ObjectTransformer {
         const as = fromSchema[key].as
         const splitAs = as.split('.')
         const asSize = as.split('.').length
-        if (['string', 'boolean', 'number', 'enum', 'upload'].includes(type)) {
+        if (['string', 'boolean', 'number', 'enum', 'upload', 'uuid'].includes(type)) {
           const helper = async (value: string[], pos: number, obj: any) => {
             if (pos == value.length - 1) {
               obj[value[pos]] = data[key]
@@ -81,7 +81,7 @@ export class ObjectTransformer {
       const type = isArray ? fromSchema[key].type.split('[]')[0] : fromSchema[key].type
       const as = fromSchema[key].as
       const splitAs = as.split('.')
-      if (['string', 'boolean', 'number', 'enum', 'upload'].includes(type)) {
+      if (['string', 'boolean', 'number', 'enum', 'upload', 'uuid'].includes(type)) {
         const helper = (value: string[], pos: number, obj: any, schemaData: any) => {
           if (pos == value.length - 1) {
             console.log({ obj, schemaData, value, pos })

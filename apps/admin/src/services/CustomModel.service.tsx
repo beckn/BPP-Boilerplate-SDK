@@ -33,6 +33,14 @@ export class CustomModelService {
           <Button type="primary" onClick={() => callbacks.edit(record)}>
             Edit
           </Button>
+          <Button
+            type="text"
+            onClick={() => {
+              callbacks.view(record)
+            }}
+          >
+            View Beckn Object
+          </Button>
           <Popconfirm
             title="Are you sure to delete this item?"
             cancelText="No"
