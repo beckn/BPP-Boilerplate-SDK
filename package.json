@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.9.7",
+    "eslint": "^7.32.0",
+    "husky": "^8.0.0",
+    "prettier": "^2.5.1",
+    "turbo": "latest",
+    "typescript": "^5.1.6"
+  },
+  "name": "BPP-Boilerplate-SDK",
+  "packageManager": "yarn@1.22.19",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
