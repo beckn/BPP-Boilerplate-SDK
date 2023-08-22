@@ -37,6 +37,14 @@ export default class Generator extends Command {
         command: `git clone ${config_env.template} .`
       },
       {
+        action: 'shell',
+        command: `git checkout ${config_env.branch}`
+      },
+      {
+        action: 'shell',
+        command: `git pull origin ${config_env.branch}`
+      },
+      {
         action: 'custom',
         async render() {
           await fs.rm('.git', { recursive: true })
@@ -51,6 +59,10 @@ export default class Generator extends Command {
       {
         action: 'shell',
         command: `git init`
+      },
+      {
+        action: 'shell',
+        command: `npm install`
       }
     ]
 
@@ -68,5 +80,11 @@ export default class Generator extends Command {
           }
       }
     }
+
+    this.log('Done. Starter template setup successfully.')
+
+    this.log('Setting up configurations')
+
+    const file_path = 'apps/server/config/sdk.yaml'
   }
 }

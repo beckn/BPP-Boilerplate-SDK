@@ -19,7 +19,10 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^3.2.6"
+    "@oclif/plugin-plugins": "^3.2.6",
+    "enquirer": "^2.4.1",
+    "prompts": "^2.4.2",
+    "yaml": "^2.3.1"
   },
   "devDependencies": {
     "@oclif/test": "^2.4.4",
@@ -27,6 +30,7 @@
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.40",
     "@types/node-fetch": "^2.6.4",
+    "@types/prompts": "^2.4.4",
     "chai": "^4",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",

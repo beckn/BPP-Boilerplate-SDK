@@ -51,6 +51,23 @@ tables:
         as: descriptor
         $ref: Descriptor
         $ref_key: name
+  - name: "Items"
+    for: Item
+    admin_ui: true
+    schema:
+      name: 
+        type: string
+        as: descriptor.name
+      item_code:
+        type: string
+        as: descriptor.code
+      images:
+        type: object[]
+        as: descriptor.images
+        children:
+          icon:
+            type: upload
+            as: url
   - name: "Driver_Details"
     for: Provider
     admin_ui: true
@@ -80,13 +97,20 @@ tables:
           name: "MICRO"
         - code: "SEDAN"
           name: "SEDAN"
-      packages:
+      clothes:
         type: object[]
         as: items
         children:
           id:
             type: string
             as: id
+          images:
+            type: object[]
+            as: descriptor.images
+            children:
+              cloth_image:
+                type: upload
+                as: url
           price:
             type: object
             as: price

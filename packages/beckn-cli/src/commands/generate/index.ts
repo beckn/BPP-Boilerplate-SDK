@@ -3,19 +3,14 @@ import fs from 'fs/promises'
 import path from 'path'
 import fetch from 'node-fetch'
 import { config_env } from '../../config'
-
+import { ConfigGenerator } from '../../scripts/generate'
+import YAML from 'yaml'
 export default class Generator extends Command {
   static description = 'Generate Beckn BPP SDK Configurations'
 
   static examples = [`$ oex generate -d=dsep -o=test.yaml`]
 
   static flags = {
-    domain: Flags.string({
-      char: 'd',
-      description: 'beckn domain',
-      required: true,
-      options: ['ride-hailing', 'dsep']
-    }),
     output: Flags.string({
       char: 'o',
       description: 'output directory',
@@ -36,12 +31,19 @@ export default class Generator extends Command {
 
     this.log(path.resolve())
 
-    const res = await (await fetch(`${config_env.config_path}/${domain}.yaml`)).text()
+    // const res = await (await fetch(`${config_env.config_path}/${domain}.yaml`)).text()
+    await ConfigGenerator.fetch_config()
+    await ConfigGenerator.prompt_env()
+
+    const res = ConfigGenerator.config
+
     const target = path.resolve(output)
 
     this.log('Writing File')
 
-    await fs.writeFile(target, res)
+    console.log(res)
+
+    await fs.writeFile(target, YAML.stringify(res))
 
     this.log('Done. SDK Configurations generated successfully.')
   }
