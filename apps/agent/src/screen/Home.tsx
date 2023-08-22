@@ -73,7 +73,9 @@ function Home() {
   const sendDataToCustomer = (quote: string) => {
     const _quote = {
       id: Math.random().toString(36).slice(2, 9),
-      price: quote
+      price: {
+        value: quote
+      }
     }
 
     window.socket?.emit(SocketEvents.ON_SELECT, {

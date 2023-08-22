@@ -60,13 +60,13 @@ export class BecknController {
   static async select(req: Request, res: Response) {
     const { context, message } = req.body
 
-    const _provider = message.order.provider
+    // const _provider = message.order.provider
 
-    const provider = new ServiceFactory('Provider')
+    // const provider = new ServiceFactory('Provider')
 
-    console.log('provider', _provider)
+    // console.log('provider', _provider)
 
-    const providerData = await provider.fetch(_provider._id)
+    const providerData = message.order.provider
 
     if (providerData) {
       const code = providerData.descriptor.code
@@ -112,8 +112,6 @@ export class BecknController {
     const context = req.body.context
     const message = req.body.message
 
-    console.log('init', req.body)
-
     const data = {
       action: '/on_init',
       transactionId: context?.transaction_id || '',
@@ -127,6 +125,8 @@ export class BecknController {
     const order = {
       ...message.order
     }
+
+    console.log('order', order)
 
     const orderData = await orderService.add(order)
 
@@ -159,6 +159,8 @@ export class BecknController {
       const code = providerData.descriptor.code
 
       const users = await redisClient.hGetAll('users')
+
+      console.log('users', users, code)
       const user = Object.keys(users).find((key: any) => users[key] === code)
       if (user) {
         socket.io.to(user).emit(SocketEvents.ON_CONFIRM, {

@@ -18,7 +18,7 @@ const main = async () => {
   const spec = SpecParser.specParse(openAPIManager.spec?.components.schemas['Order'].properties as any)
 
   // console.log(spec)
-  console.log((spec.fulfillments as any)[0].stops[0].location)
+  console.log(spec.quote as any)
 
   // await bpp.initializeDB()
 
