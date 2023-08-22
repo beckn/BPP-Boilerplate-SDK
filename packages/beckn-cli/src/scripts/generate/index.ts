@@ -86,8 +86,6 @@ export class ConfigGenerator {
       }
     ])
 
-    console.log(data)
-
     // Setup Mongo
     this.config.db.mongo.mongo_uri = data.MONGO_URI
 

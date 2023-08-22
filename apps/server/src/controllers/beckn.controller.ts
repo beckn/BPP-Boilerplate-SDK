@@ -112,6 +112,8 @@ export class BecknController {
     const context = req.body.context
     const message = req.body.message
 
+    console.log('init', req.body)
+
     const data = {
       action: '/on_init',
       transactionId: context?.transaction_id || '',
