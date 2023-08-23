@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specifications/1.1.0/api/transaction/build/transaction.yaml
+=======
+path: /home/sarfraz/coding/starter/packages/bpp-sdk/src/example/transaction.yaml
+>>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
 version: 1.1.0
 
 
 db:
   mongo:
+<<<<<<< HEAD
     mongo_uri: mongodb://localhost:27017
+=======
+    mongo_uri: mongodb://localhost:27017/beckn
+>>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
     models:
     - name: "Transaction"
       schema:

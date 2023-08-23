@@ -7,21 +7,37 @@ import fs from 'fs'
 import { ObjectTransformer } from '../transformer/object.transformer'
 import mongoose from 'mongoose'
 import { SpecParser } from '../openapi/spec_parser'
+import { flattenObject } from '../util/flattenObject.util'
 
 const bpp = new BppSDK(yaml.parse(fs.readFileSync(path.resolve('./src/example/example.yaml'), 'utf8')))
 
 const main = async () => {
-  openAPIManager.parseOpenAPISpec()
+  // openAPIManager.parseOpenAPISpec()
 
-  console.log(openAPIManager.spec?.components.schemas['Payments'])
+  // console.log(openAPIManager.spec?.components.schemas['Payments'])
 
-  const spec = SpecParser.specParse(openAPIManager.spec?.components.schemas['Order'].properties as any)
+  // const spec = SpecParser.specParse(openAPIManager.spec?.components.schemas['Order'].properties as any)
 
   // console.log(spec)
-  console.log(spec.quote as any)
+  // console.log(spec.quote as any)
 
-  // await bpp.initializeDB()
+  openAPIManager.parseOpenAPISpec()
 
+  await bpp.initializeDB()
+
+  const intent = {
+    descriptor: {
+      code: 'sarfraz'
+    }
+  }
+
+  const obj = flattenObject(intent)
+
+  const provide = new ServiceFactory('Provider')
+  const data = await provide.query(obj)
+
+  console.log(data)
+  //
   // const order = {
   //   provider: {
   //     descriptor: {

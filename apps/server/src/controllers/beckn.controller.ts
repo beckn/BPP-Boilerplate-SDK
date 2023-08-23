@@ -5,6 +5,7 @@ import socket from '../index.socket'
 import { redisClient } from '../utils/redis'
 import { SocketEvents } from 'shared-utils/events'
 import { logger } from '../utils/logger'
+import { flattenObject } from '../utils/flattenObject.util'
 
 const callBack = new CallbackFactory()
 const ProviderService = new ServiceFactory('Provider')
@@ -39,7 +40,15 @@ export class BecknController {
 
     const provider = new ServiceFactory('Provider')
 
-    const providers = await provider.fetch(undefined)
+    const descriptor = {
+      descriptor: message.intent.descriptor
+    }
+
+    const obj = flattenObject(descriptor)
+
+    console.log('obj', obj)
+
+    const providers = await provider.query(obj)
 
     const callbackMessage = {
       context: callbackContext,

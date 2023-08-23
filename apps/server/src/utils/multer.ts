@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import multer from 'multer'
 import crypto from 'crypto'
 
@@ -6,8 +7,8 @@ const storage = multer.diskStorage({
     cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
-    let ext_patt = /\.([0-9a-z]+)(?:[\?#]|$)/i
-    let ext_exec = file.originalname.match(ext_patt)
+    const ext_patt = /\.([0-9a-z]+)(?:[\?#]|$)/i
+    const ext_exec = file.originalname.match(ext_patt)
     let ext = ''
     if (ext_exec && ext_exec.length > 1) {
       ext = ext_exec[1]

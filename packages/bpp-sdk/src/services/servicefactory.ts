@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose'
 
 export class ServiceFactory {
@@ -10,7 +12,7 @@ export class ServiceFactory {
     }
   }
 
-  async add(data: object) {
+  async add(data: any) {
     const modelData = new this.model(data)
     await modelData.save()
     return modelData
@@ -25,7 +27,8 @@ export class ServiceFactory {
       return data
     }
   }
-  async update(query: string | object, data: object) {
+
+  async update(query: any, data: any) {
     if (typeof query === 'object') {
       const updated_data = await this.model.find(query).updateMany(data)
       return updated_data
@@ -33,6 +36,11 @@ export class ServiceFactory {
       const updated_data = await this.model.findByIdAndUpdate(query, data)
       return updated_data
     }
+  }
+
+  async query(q: any) {
+    const data = await this.model.find(q)
+    return data
   }
 
   async delete(id: string) {
