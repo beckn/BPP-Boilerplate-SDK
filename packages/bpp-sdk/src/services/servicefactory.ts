@@ -25,7 +25,6 @@ export class ServiceFactory {
       return data
     }
   }
-
   async update(query: string | object, data: object) {
     if (typeof query === 'object') {
       const updated_data = await this.model.find(query).updateMany(data)

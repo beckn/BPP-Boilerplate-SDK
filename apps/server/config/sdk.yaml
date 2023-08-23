@@ -2,85 +2,6 @@ path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specificatio
 version: 1.1.0
 db:
   mongo:
-<<<<<<< HEAD
-    mongo_uri: mongodb://localhost:27017
-    models:
-    - name: "Transaction"
-      schema:
-        txn_id:
-          type: string
-        order_id:
-          type: ObjectId
-          ref: Order
-          required: true
-        status:
-          type: string
-          default: "initiated"
-          enum:
-            - "initiated"
-            - "in_progress"
-            - "completed"
-            - "cancelled"
-            - "confirmed"
-tables:     
-  - name: "Descriptor"
-    admin_ui: true
-    for: Descriptor
-    schema: 
-      title: 
-        type: string
-        as: name
-      description:
-        type: string
-        as: short_desc
-      code: 
-        type: string
-        as: code
-      images: 
-        type: object[]
-        as: images
-        children:
-          icon:
-            type: upload
-            as: url
-  - name: "User_Catalog"
-    for: Catalog
-    admin_ui: true
-    schema: 
-      descriptor:
-        type: ref
-        as: descriptor
-        $ref: Descriptor
-        $ref_key: name
-  - name: "Items"
-    for: Item
-    admin_ui: true
-    schema:
-      name: 
-        type: string
-        as: descriptor.name
-      item_code:
-        type: string
-        as: descriptor.code
-      images:
-        type: object[]
-        as: descriptor.images
-        children:
-          icon:
-            type: upload
-            as: url
-  - name: "Driver_Details"
-    for: Provider
-    admin_ui: true
-    schema:
-      driver_name:
-        type: string
-        as: descriptor.name
-      driver_code:
-        type: string
-        as: descriptor.code
-      driver_images:
-=======
     mongo_uri: mongodb://localhost:27017/beckn
     models:
       - name: Transaction
@@ -115,28 +36,12 @@ tables:
         type: string
         as: descriptor.short_desc
       mentor_images:
->>>>>>> dce0574889cffc9cb19733e0fdb5a39eebb7f6cb
         type: object[]
         as: descriptor.images
         children:
           icon:
             type: upload
             as: url
-<<<<<<< HEAD
-      vehicle_category:
-        type: enum
-        as: category_id
-        enum:
-        - code: "MINI"
-          name: "MINI"
-        - code: "AUTO"
-          name: "AUTO"
-        - code: "MICRO"
-          name: "MICRO"
-        - code: "SEDAN"
-          name: "SEDAN"
-      clothes:
-=======
       subject:
         type: enum
         as: category_id
@@ -150,22 +55,10 @@ tables:
           - code: CHEMISTRY
             name: CHEMISTRY
       packages:
->>>>>>> dce0574889cffc9cb19733e0fdb5a39eebb7f6cb
         type: object[]
         as: items
         children:
           id:
-<<<<<<< HEAD
-            type: string
-            as: id
-          images:
-            type: object[]
-            as: descriptor.images
-            children:
-              cloth_image:
-                type: upload
-                as: url
-=======
             type: uuid
             as: id
           name:
@@ -174,7 +67,6 @@ tables:
           short_desc:
             type: string
             as: descriptor.short_desc
->>>>>>> dce0574889cffc9cb19733e0fdb5a39eebb7f6cb
           price:
             type: object
             as: price
@@ -182,21 +74,6 @@ tables:
               value:
                 type: string
                 as: value
-<<<<<<< HEAD
-
-gateway:
-    uri: https://gateway.becknprotocol.io/bg
-    registry_uri: https://registry.becknprotocol.io/subscribers
-app:
-    id: sarfraz-bpp-dsep
-    unique_id: sarfraz-bpp-dsep-key
-    uri: https://sarfraz-bpp.loca.lt
-    ttl: PT10M
-    city: std:080
-    country: IND
-    public_key: YcnZ8xyT2M2onkgI+t6W9Ct+6FnsBuiSCa8WqPDLy8k=
-    private_key: SiVZmCtmzKdhZ3VUG5ONYKLDdtF1slRPEGZWHMS3DhthydnzHJPYzaieSAj63pb0K37oWewG6JIJrxao8MvLyQ==
-=======
 gateway:
   uri: https://gateway.becknprotocol.io/bg
   registry_uri: https://registry.becknprotocol.io/subscribers
@@ -209,4 +86,3 @@ app:
   country: IND
   public_key: YcnZ8xyT2M2onkgI+t6W9Ct+6FnsBuiSCa8WqPDLy8k=
   private_key: SiVZmCtmzKdhZ3VUG5ONYKLDdtF1slRPEGZWHMS3DhthydnzHJPYzaieSAj63pb0K37oWewG6JIJrxao8MvLyQ==
->>>>>>> dce0574889cffc9cb19733e0fdb5a39eebb7f6cb
