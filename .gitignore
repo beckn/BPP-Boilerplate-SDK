@@ -42,3 +42,4 @@ package-lock.json
 
 
 apps/server/public/uploads/*
+*.rdb

@@ -22,7 +22,6 @@ db:
               - cancelled
               - confirmed
 tables:
-<<<<<<< HEAD
   - name: Mentors
     for: Provider
     admin_ui: true
@@ -37,55 +36,12 @@ tables:
         type: string
         as: descriptor.short_desc
       mentor_images:
-=======
-  - name: Descriptor
-    admin_ui: true
-    for: Descriptor
-    schema:
-      title:
-        type: string
-        as: name
-      description:
-        type: string
-        as: short_desc
-      code:
-        type: string
-        as: code
-      images:
-        type: object[]
-        as: images
-        children:
-          icon:
-            type: upload
-            as: url
-  - name: User_Catalog
-    for: Catalog
-    admin_ui: true
-    schema:
-      descriptor:
-        type: ref
-        as: descriptor
-        $ref: Descriptor
-        $ref_key: name
-  - name: Driver_Details
-    for: Provider
-    admin_ui: true
-    schema:
-      driver_name:
-        type: string
-        as: descriptor.name
-      driver_code:
-        type: string
-        as: descriptor.code
-      driver_images:
->>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
         type: object[]
         as: descriptor.images
         children:
           icon:
             type: upload
             as: url
-<<<<<<< HEAD
       subject:
         type: enum
         as: category_id
@@ -98,26 +54,11 @@ tables:
             name: PHYSICS
           - code: CHEMISTRY
             name: CHEMISTRY
-=======
-      vehicle_category:
-        type: enum
-        as: category_id
-        enum:
-          - code: MINI
-            name: MINI
-          - code: AUTO
-            name: AUTO
-          - code: MICRO
-            name: MICRO
-          - code: SEDAN
-            name: SEDAN
->>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
       packages:
         type: object[]
         as: items
         children:
           id:
-<<<<<<< HEAD
             type: uuid
             as: id
           name:
@@ -126,10 +67,6 @@ tables:
           short_desc:
             type: string
             as: descriptor.short_desc
-=======
-            type: string
-            as: id
->>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
           price:
             type: object
             as: price
