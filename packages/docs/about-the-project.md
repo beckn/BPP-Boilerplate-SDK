@@ -1,20 +1,4 @@
-# BeckN BPP Boilerplate UI + Backend SDK
-
-## Folder Structure
-
-```bash
-├── apps/
-│   ├── admin/ # Admin UI React App
-│   ├── agent/ # Fulfillment Agent Application (React Native)
-│   └── server/ # BPP Backend Server
-│   └── webhook/ # BPP Webhook
-├── packages/
-│   ├── bpp-sdk/ # BPP SDK Library
-│   └── shared-utils/ # Shared Utility Library
-└── package.json
-```
-
-## About the Project
+# About the Project
 
 The Boilerplate UI + Backend Framework project allows developers to quickly become beckn enabled and beckn protocol-based software quickly. The Backend Framework SDK gives the developer a defined structure to build beckn systems. 
 Moreover, the project also includes a set of Fulfillment Applications and Admin UI connected with various BPPs.
