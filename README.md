@@ -61,7 +61,7 @@ Moreover, the project also includes a set of Fulfillment Applications and Admin 
 
 - Simply run docker compose by running `docker-compose up`.
 - The docker-compose file contains the following containers:
-  - **sarfalam/simple-beckn-bap-ride-hailing:1:** BAP service based on simple-beckn (https://github.com/Sarfraz-droid/simple-beckn)
+  - **sarfalam/simple-beckn-bap-ride-hailing:1:** BAP service based on [simple-beckn](https://github.com/Sarfraz-droid/simple-beckn)
   - **sarfalam/bpp-boilerplate-ride-hailing:1.0.0:** This includes the boilerplate admin ui, server and android application.
   - **mongodb:** MongoDB Server
   - **redis:** Redis Server
