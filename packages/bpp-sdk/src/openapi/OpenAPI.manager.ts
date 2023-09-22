@@ -1,5 +1,6 @@
 import yaml from 'yaml'
 import fs from 'fs'
+import fetch from 'node-fetch'
 import { Option } from '../types/option.types'
 import { OpenAPISchemaProperty, OpenAPISpec } from '../types/openapi.types'
 import { ITableSchema, ITableSchemaObject, SchemaType } from '../types/mongoose.types'
@@ -15,10 +16,13 @@ export class OpenAPIManager {
     this.path = options.path
   }
 
-  parseOpenAPISpec() {
+  async parseOpenAPISpec() {
     if (!this.path) throw new Error('Error Occurred Parsing Open API Spec')
 
-    const json = yaml.parse(fs.readFileSync(this.path, 'utf-8'))
+    const res = await fetch(this.path)
+    const text = await res.text()
+
+    const json = yaml.parse(text)
     // console.log(json)
     this.spec = json as OpenAPISpec
   }

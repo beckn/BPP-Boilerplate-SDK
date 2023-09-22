@@ -1,5 +1,5 @@
 import { Button, Modal, Typography, notification } from 'antd'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { selectedModelAtom } from '../../../../atom/selectedmodel.atom'
 import { useQuery } from 'react-query'
 import { instance } from '../../../../util/axiosInstance'

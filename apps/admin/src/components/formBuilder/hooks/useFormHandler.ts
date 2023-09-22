@@ -3,8 +3,7 @@ import useForceUpdate from '../../../hooks/useForceUpdate'
 
 function useFormHandler({
   schema,
-  defaultState,
-  selectedID
+  defaultState
 }: {
   schema: {
     [key: string]: any

@@ -18,7 +18,7 @@ const main = async () => {
   try {
     logger.debug('Connecting to database')
 
-    openAPIManager.parseOpenAPISpec()
+    await openAPIManager.parseOpenAPISpec()
 
     await bppSDK.initializeDB()
 

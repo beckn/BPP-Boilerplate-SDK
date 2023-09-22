@@ -3,15 +3,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { FormBuilderContext } from '..'
 import _ from 'lodash'
 
-const StringRender = ({
-  type,
-  label,
-  onChange
-}: {
-  type: string
-  label: string
-  onChange?: (value: string) => void
-}) => {
+const StringRender = ({ label, onChange }: { type: string; label: string; onChange?: (value: string) => void }) => {
   const { getValueByLabel } = useContext(FormBuilderContext)
 
   const [value, setValue] = useState(getValueByLabel(label))
@@ -46,9 +38,7 @@ const StringRender = ({
 
 function StringFormHandler({
   schema,
-  label,
-  isArray,
-  value
+  label
 }: {
   schema: {
     [key: string]: any

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQuery } from 'react-query'
 import { instance } from '../../util/axiosInstance'
 import Loader from '../ui/Loader'

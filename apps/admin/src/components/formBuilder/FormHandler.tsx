@@ -1,4 +1,3 @@
-import { Form, Input, Switch } from 'antd'
 import React from 'react'
 import StringFormHandler from './TypeHandler/String.handler'
 import BooleanFormHandler from './TypeHandler/Boolean.handler'

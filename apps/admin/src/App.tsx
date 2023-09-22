@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from 'antd'
 import React from 'react'
-import { BrowserRouter, Outlet, Route, Router, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom'
-import routes, { IRoute, IRoutes } from './routes'
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import routes, { IRoute } from './routes'
 
 function generateRoutes(routes: IRoute[]): any[] {
   return routes.map((route: IRoute) => {

@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { CustomModelService } from '../../services/CustomModel.service'
-import { Modal, Table, Typography, message } from 'antd'
+import { Modal, Table, message } from 'antd'
 import { useQuery } from 'react-query'
 import { instance } from '../../util/axiosInstance'
 import Loader from '../ui/Loader'

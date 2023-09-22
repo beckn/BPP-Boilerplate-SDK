@@ -1,5 +1,5 @@
 import { Button, Collapse } from 'antd'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { FormBuilderContext } from '..'
 import FormHandler from '../FormHandler'
 import useForceUpdate from '../../../hooks/useForceUpdate'
@@ -16,7 +16,7 @@ function ObjectHandler({
   label: string
   isArray?: boolean
 }) {
-  const { formState, setFormState, getFormStateByLabel, addFormBySchema } = React.useContext(FormBuilderContext)
+  const { getFormStateByLabel, addFormBySchema } = React.useContext(FormBuilderContext)
   const update = useForceUpdate()
 
   const formData = useMemo(() => {
@@ -52,7 +52,7 @@ function ObjectHandler({
                     <React.Fragment>
                       <Collapse
                         accordion={true}
-                        items={formData.map((value: any, objectKey: number) => {
+                        items={formData.map((_: any, objectKey: number) => {
                           return {
                             label: `${label}.${objectKey}`,
                             children: (

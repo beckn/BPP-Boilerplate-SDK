@@ -1,14 +1,12 @@
-import { Button, Form, Input, Popover, Space, Typography } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
+import { Button, Form, Space, Typography } from 'antd'
+import { useContext, useEffect, useState } from 'react'
 import { FormBuilderContext } from '..'
 import _ from 'lodash'
 import { ReloadOutlined } from '@ant-design/icons'
 import uniqid from 'uniqid'
 
 function UUIDHandler({
-  schema,
-  label,
-  isArray
+  label
 }: {
   schema: {
     [key: string]: any

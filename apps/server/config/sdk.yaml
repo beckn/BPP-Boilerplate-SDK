@@ -1,4 +1,4 @@
-path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specifications/1.1.0/api/transaction/build/transaction.yaml
+path: https://raw.githubusercontent.com/Sarfraz-droid/Beckn-BPP-SDK-Configurations/main/transaction.yaml
 version: 1.1.0
 db:
   mongo:
@@ -22,51 +22,71 @@ db:
               - cancelled
               - confirmed
 tables:
-  - name: Mentors
+  - name: Descriptor
+    admin_ui: true
+    for: Descriptor
+    schema:
+      title:
+        type: string
+        as: name
+      description:
+        type: string
+        as: short_desc
+      code:
+        type: string
+        as: code
+      images:
+        type: object[]
+        as: images
+        children:
+          icon:
+            type: upload
+            as: url
+  - name: User_Catalog
+    for: Catalog
+    admin_ui: true
+    schema:
+      descriptor:
+        type: ref
+        as: descriptor
+        $ref: Descriptor
+        $ref_key: name
+  - name: Driver_Details
     for: Provider
     admin_ui: true
     schema:
-      name:
+      driver_name:
         type: string
         as: descriptor.name
-      mentor_code:
-        type: uuid
-        as: descriptor.code
-      short_desc:
+      driver_code:
         type: string
-        as: descriptor.short_desc
-      mentor_images:
+        as: descriptor.code
+      driver_images:
         type: object[]
         as: descriptor.images
         children:
           icon:
             type: upload
             as: url
-      subject:
+      vehicle_category:
         type: enum
         as: category_id
         enum:
-          - code: MATHS
-            name: MATHS
-          - code: ENGLISH
-            name: ENGLISH
-          - code: PHYSICS
-            name: PHYSICS
-          - code: CHEMISTRY
-            name: CHEMISTRY
+          - code: MINI
+            name: MINI
+          - code: AUTO
+            name: AUTO
+          - code: MICRO
+            name: MICRO
+          - code: SEDAN
+            name: SEDAN
       packages:
         type: object[]
         as: items
         children:
           id:
-            type: uuid
+            type: string
             as: id
-          name:
-            type: string
-            as: descriptor.name
-          short_desc:
-            type: string
-            as: descriptor.short_desc
           price:
             type: object
             as: price

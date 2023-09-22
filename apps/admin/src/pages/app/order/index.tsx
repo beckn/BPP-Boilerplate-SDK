@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button, Modal, Popover, Space, Typography } from 'antd'
 import { useQuery } from 'react-query'
 import { instance } from '../../../util/axiosInstance'
-import Table, { ColumnType } from 'antd/es/table'
+import Table from 'antd/es/table'
 import OrderDetails from '../../../components/order/OrderDetails'
 import Loader from '../../../components/ui/Loader'
 

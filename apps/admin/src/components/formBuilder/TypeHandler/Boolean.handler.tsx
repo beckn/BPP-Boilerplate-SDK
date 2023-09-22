@@ -3,10 +3,7 @@ import React, { useContext } from 'react'
 import { FormBuilderContext } from '..'
 
 function BooleanFormHandler({
-  schema,
-  label,
-  additional,
-  isArray
+  schema
 }: {
   schema: {
     [key: string]: any

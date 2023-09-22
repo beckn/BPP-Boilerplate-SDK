@@ -1,4 +1,4 @@
-import { IRoute, IRoutes } from '../routes'
+import { IRoute } from '../routes'
 
 export class AppLayoutService {
   map = new Map<string, IRoute[]>()

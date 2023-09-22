@@ -1,0 +1,19 @@
+FROM node:16
+
+WORKDIR /app
+
+COPY . .
+
+ENV DOCKER=true
+
+RUN make setup
+
+EXPOSE 4000
+
+EXPOSE 4001
+
+EXPOSE 5173
+
+EXPOSE 8081
+
+CMD ["make", "dev"]

@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  bap:
+    image: sarfalam/simple-beckn-bap-ride-hailing:1
+    ports:
+      - "3001:3001"
+    environment:
+      - REDIS_HOST=host.docker.internal
+      - REDIS_PORT=6379
+  boilerplate:
+    image: sarfalam/bpp-boilerplate-ride-hailing:1.0.0
+    environment:
+      - REDIS_HOST=host.docker.internal
+      - REDIS_PORT=6379
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+    ports:
+      - "4173:4173"
+      - "4000:4000"
+      - "4001:4001"
+      - "8081:8081"
+    stdin_open: true 
+    tty: true
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - db:/data/db  
+  redis:
+    image: redis:6-alpine
+    ports:
+      - '6379:6379'
+    
+volumes:
+  db:
+# networks:
+#   default:
+#     driver: app

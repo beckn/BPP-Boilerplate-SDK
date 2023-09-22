@@ -1,12 +1,11 @@
-import React, { useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { FormBuilderContext } from '..'
 import { Form, Select } from 'antd'
 import _ from 'lodash'
 
 function EnumHandler({
   schema,
-  label,
-  isArray
+  label
 }: {
   schema: {
     [key: string]: any

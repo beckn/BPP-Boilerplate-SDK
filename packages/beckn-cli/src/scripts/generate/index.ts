@@ -83,6 +83,12 @@ export class ConfigGenerator {
         name: 'APP_PRIVATE_KEY',
         message: 'Enter the app private key',
         validate: (value: string) => (value.length > 0 ? true : 'Please enter a valid app private key')
+      },
+      {
+        type: 'text',
+        name: 'OPEN_API_SPEC_PATH',
+        message: 'Enter the OPEN API SPEC Path',
+        initial: 'https://raw.githubusercontent.com/Sarfraz-droid/Beckn-BPP-SDK-Configurations/main/transaction.yaml'
       }
     ])
 
@@ -99,5 +105,7 @@ export class ConfigGenerator {
     this.config.app.uri = data.APP_URI
     this.config.app.public_key = data.APP_PUBLIC_KEY
     this.config.app.private_key = data.APP_PRIVATE_KEY
+
+    this.config.path = data.OPEN_API_SPEC_PATH
   }
 }

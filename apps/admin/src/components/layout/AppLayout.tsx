@@ -1,15 +1,10 @@
 import { Layout, Menu, Space, Typography, theme } from 'antd'
-import React, { useMemo, useCallback } from 'react'
-import routes, { IRoute, IRoutePaths, IRoutes, getRoutePath } from '../../routes'
+import { IRoutePaths, getRoutePath } from '../../routes'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import type { MenuProps } from 'antd'
-import { AppLayoutService } from '../../services/Applayout.service'
 import { useRecoilState } from 'recoil'
 import { selectedModelAtom } from '../../atom/selectedmodel.atom'
 import { useQuery } from 'react-query'
 import { instance } from '../../util/axiosInstance'
-
-type MenuItem = Required<MenuProps>['items'][number]
 
 function AppLayout() {
   const location = useLocation()
@@ -20,7 +15,7 @@ function AppLayout() {
   console.log(location.pathname)
 
   const {
-    token: { colorBgContainer, colorBgBase }
+    token: { colorBgContainer }
   } = theme.useToken()
 
   const { data: customModels } = useQuery(['customModels'], async () => {
@@ -53,12 +48,6 @@ function AppLayout() {
   //     layout
   //   }
   // }, [addItems])
-
-  const menuManager = useMemo(() => {
-    return {
-      items: []
-    }
-  }, [])
 
   return (
     <Layout className="min-h-screen">

@@ -1,9 +1,8 @@
 import { Button, Form, Upload } from 'antd'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FormBuilderContext } from '..'
 
 function UploadHandler({
-  schema,
   label,
   isArray
 }: {

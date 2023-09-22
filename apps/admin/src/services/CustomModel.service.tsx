@@ -28,7 +28,7 @@ export class CustomModelService {
     data.push({
       title: 'Action',
       key: 'action',
-      render: (text: any, record: any) => (
+      render: (_: any, record: any) => (
         <Space size="middle">
           <Button type="primary" onClick={() => callbacks.edit(record)}>
             Edit
