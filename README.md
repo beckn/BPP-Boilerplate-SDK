@@ -53,6 +53,8 @@ Moreover, the project also includes a set of Fulfillment Applications and Admin 
 - Clone the repository by.
   ```bash
   git clone <repo-link>
+  git checkout -b dev
+  git pull origin dev
   ```
 
 #### Using Docker
