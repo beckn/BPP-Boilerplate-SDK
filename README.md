@@ -5,45 +5,10 @@
 The Boilerplate UI + Backend Framework project allows developers to quickly become beckn enabled and beckn protocol-based software quickly. The Backend Framework SDK gives the developer a defined structure to build beckn systems. 
 Moreover, the project also includes a set of Fulfillment Applications and Admin UI connected with various BPPs.
 
-## Getting Started
-
-### Setup Instructions
-
-- **Clone the repo**
-
-  ```
-    git clone <repo-link>
-  ```
-
-- **Installing Dependencies**
-
-  - Run `make setup` to run the setup suite.
-  - This will run the setup suite, install dependencies, build the sdk, and cli application.
-  - After this, generate your sdk file and run the boilerplate.
-    Example
-
-  ```
-
-  ✔ Enter the mongo uri … mongodb://localhost:27017/beckn
-  ✔ Enter the gateway uri … https://gateway.becknprotocol.io/bg
-  ✔ Enter the gateway register uri … https://registry.becknprotocol.io/subscribers
-  ✔ Enter the subscribe uri … sarfraz-bpp-dsep
-  ✔ Enter the app unique id … sarfraz-bpp-dsep-key
-  ✔ Enter the app uri … https://sarfraz-bpp.loca.lt
-  ✔ Enter the app public key … YcnZ8xyT2M2onkgI+t6W9Ct+6FnsBuiSCa8WqPDLy8k=
-  ✔ Enter the app private key … SiVZmCtmzKdhZ3VUG5ONYKLDdtF1slRPEGZWHMS3DhthydnzHJPYzaieSAj63pb0K37oWewG6JIJrxao8MvLyQ==
-  ✔ Enter the open api spec path … /home/sarfraz/coding/BPP-Boilerplate-SDK/apps/server/transaction.yaml
-
-  ```
-
--
-
 ## Table of content:
 
 - [BeckN BPP Boilerplate UI + Backend SDK](#beckn-bpp-boilerplate-ui--backend-sdk)
   - [What is BeckN BPP Boilerplate UI + Beckend SDK?](#what-is-beckn-bpp-boilerplate-ui--beckend-sdk)
-  - [Getting Started](#getting-started)
-    - [Setup Instructions](#setup-instructions)
   - [Table of content:](#table-of-content)
     - [Demo](#demo)
     - [Pre-requisites](#pre-requisites)
@@ -84,6 +49,11 @@ Moreover, the project also includes a set of Fulfillment Applications and Admin 
 <a id="project-setup"></a>
 
 ### Project Setup
+
+- Clone the repository by.
+  ```bash
+  git clone <repo-link>
+  ```
 
 #### Using Docker
 
