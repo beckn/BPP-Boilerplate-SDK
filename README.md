@@ -40,11 +40,23 @@ Moreover, the project also includes a set of Fulfillment Applications and Admin 
 
 ## Table of content:
 
-- [Demo](#demo)
-- [Pre-requisites](#pre-requisites)
-- [Project Setup](#item-three)
-- [Folder Structure](#folder-structure)
-- [Project Architecture](#project-architecture)
+- [BeckN BPP Boilerplate UI + Backend SDK](#beckn-bpp-boilerplate-ui--backend-sdk)
+  - [What is BeckN BPP Boilerplate UI + Beckend SDK?](#what-is-beckn-bpp-boilerplate-ui--beckend-sdk)
+  - [Getting Started](#getting-started)
+    - [Setup Instructions](#setup-instructions)
+  - [Table of content:](#table-of-content)
+    - [Demo](#demo)
+    - [Pre-requisites](#pre-requisites)
+    - [Project Setup](#project-setup)
+      - [Using Docker](#using-docker)
+      - [Local Setup](#local-setup)
+      - [Connecting to Apps](#connecting-to-apps)
+    - [Folder Structure](#folder-structure)
+    - [Project Architecture](#project-architecture)
+      - [BPP SDK](#bpp-sdk)
+      - [BPP Server](#bpp-server)
+      - [Fulfillment UI Application](#fulfillment-ui-application)
+    - [Admin UI](#admin-ui)
 
 ### Demo
 
@@ -105,9 +117,28 @@ make expose
 
 #### Local Setup
 
+**STEP 1: Install Dependencies & Run services**
+
 - Setup the application by running `make setup`. This will setup all the necessary cli, sdk and configurations. Follow the prompts and generate your config.
 - Run the application by running `make local-dev`. This will run the **Server**, **Admin UI** and the **Android Application**.
   **Alternatively,** you can run the **Server**, **Admin UI** and **Android Application** separately by running `make local-dev-server`, `make local-dev-admin` and `make local-dev-android` respectively.
+
+**STEP 2: Exposing the ports**
+
+- For the **BAPs,BPPs,Android and Admin UI** to interact you must expose the ports. For docker, run the following command on your machine.
+
+```bash
+make install
+```
+
+- Then expose the ports by running:
+
+```bash
+make expose
+```
+
+**STEP 3: Connecting to the APPs**
+
 - Check out [Connecting to Apps](#connecting-to-apps) section to connect to the apps.
 
 <a id="connecting-to-apps"></a>
