@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-// import useSocket from './src/hooks/socketIO.hook';
 import SocketWrapper from './src/components/wrapper/SocketWrapper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'

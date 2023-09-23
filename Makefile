@@ -1,6 +1,5 @@
 NAME="sarfraz"
 BAP_PORT=3001
-BPP_PORT=4000
 WEBHOOK=3005
 
 setup:
@@ -60,7 +59,7 @@ expose:
 	concurrently \
 		"lt --port ${BAP_PORT} --subdomain ${NAME}-bap" \
 		"lt --port ${WEBHOOK} --subdomain ${NAME}-webhook" \
-		"cd apps/server && make expose"
+		"cd apps/server && make expose"		
 bpp:
 	lt --port ${BPP_PORT} --subdomain ${NAME}-bpp
 
