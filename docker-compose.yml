@@ -10,7 +10,7 @@ services:
     volumes:
       - ./docker_config/bap/config.yaml:/app/config/bap.yaml
   boilerplate:
-    image: sarfalam/bpp-boilerplate-ride-hailing:1.0.2
+    image: sarfalam/bpp-boilerplate-ride-hailing:1.0.3
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
