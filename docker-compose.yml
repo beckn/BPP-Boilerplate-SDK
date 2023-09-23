@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   bap:
-    image: sarfalam/simple-beckn-bap-ride-hailing:1
+    image: sarfalam/simple-beckn-bap-ride-hailing:1.0.2
     ports:
       - "3001:3001"
     environment:
@@ -10,7 +10,7 @@ services:
     volumes:
       - ./docker_config/bap/config.yaml:/app/config/bap.yaml
   boilerplate:
-    image: sarfalam/bpp-boilerplate-ride-hailing:1.0.0
+    image: sarfalam/bpp-boilerplate-ride-hailing:1.0.2
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -41,5 +41,8 @@ services:
       - '80:80'
     volumes:
       - ./docker_config/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - boilerplate
+      - bap
 volumes:
   db:
