@@ -1,0 +1,116 @@
+<<<<<<< HEAD
+path: /home/sarfraz/coding/BPP-Boilerplate-SDK/packages/bpp-sdk/src/specifications/1.1.0/api/transaction/build/transaction.yaml
+=======
+path: /home/sarfraz/coding/starter/packages/bpp-sdk/src/example/transaction.yaml
+>>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
+version: 1.1.0
+
+
+db:
+  mongo:
+<<<<<<< HEAD
+    mongo_uri: mongodb://localhost:27017
+=======
+    mongo_uri: mongodb://localhost:27017/beckn
+>>>>>>> 27a540418492b1b97060388f1422495f6e92fefd
+    models:
+    - name: "Transaction"
+      schema:
+        txn_id:
+          type: ObjectId
+        order_id:
+          type: ObjectId
+          ref: Order
+
+tables:     
+  - name: "Descriptor"
+    for: Descriptor
+    admin_ui: true
+    schema: 
+      title: 
+        type: string
+        as: name
+      description:
+        type: string
+        as: short_desc
+      code: 
+        type: string
+        as: code
+      images: 
+        type: object[]
+        as: images
+        children:
+          icon:
+            type: upload
+            as: url
+  - name: "User_Catalog"
+    for: Catalog
+    admin_ui: true
+    schema: 
+      descriptor:
+        type: ref
+        as: descriptor
+        $ref: Descriptor
+        $ref_key: name
+  - name: Provider
+    for: Provider
+    admin_ui: true
+    schema:
+      name:
+        type: string
+        as: descriptor.name
+      code:
+        type: string
+        as: descriptor.code
+      images:
+        type: object[]
+        as: descriptor.images
+        children:
+          icon:
+            type: upload
+            as: url
+      category:
+        type: enum
+        as: category_id
+        enum:
+        - code: "MINI"
+          name: "MINI"
+        - code: "AUTO"
+          name: "AUTO"
+        - code: "MICRO"
+          name: "MICRO"
+        - code: "SEDAN"
+          name: "SEDAN"
+      items:
+        type: object[]
+        as: items
+        children:
+          id:
+            type: string
+            as: id
+          images:
+            type: object[]
+            as: images
+            children:
+              icon:
+                type: upload
+                as: url
+          price:
+            type: object
+            as: price
+            children:
+              value:
+                type: string
+                as: value
+gateway:
+    uri: https://gateway.becknprotocol.io/bg
+    registry_uri: https://registry.becknprotocol.io/subscribers
+app:
+    id: sarfraz-bpp-dsep
+    unique_id: 20f7e9d0103d
+    uri: https://sarfraz-bpp.loca.lt
+    ttl: PT10M
+    city: std:080
+    country: IND
+    public_key: YcnZ8xyT2M2onkgI+t6W9Ct+6FnsBuiSCa8WqPDLy8k=
+    private_key: SiVZmCtmzKdhZ3VUG5ONYKLDdtF1slRPEGZWHMS3DhthydnzHJPYzaieSAj63pb0K37oWewG6JIJrxao8MvLyQ==

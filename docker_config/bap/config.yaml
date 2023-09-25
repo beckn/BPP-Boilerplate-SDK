@@ -1,0 +1,14 @@
+domain: mobility:ridehailing:0.8.0
+port: 3001
+local_tunnel_subdomain: sarfraz-bap
+gateway:
+    uri: https://gateway.becknprotocol.io/bg
+app:
+    id: sarfraz-bap-dsep
+    unique_id: sarfraz-bap-dsep-key
+    uri: https://de92-103-219-229-97.ngrok-free.app/bap
+    ttl: PT10M
+    city: std:080
+    country: IND
+    public_key: LbepZi2ldU5ORE+C63mq0GTP8UIChBe+fbbjVgP4q+U=
+    private_key: BdZyzDsTPS1MLsNqdMVtktVVMfDichhZbkZFwt69Q7Mtt6lmLaV1Tk5ET4LrearQZM/xQgKEF759tuNWA/ir5Q==
